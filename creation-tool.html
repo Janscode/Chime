@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            height: 70px;
+            border-bottom: 2px solid #E8E8E8;
+        }
+
+        .header-left,
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-img {
+            height: 40px;
+            margin: 0 20px;
+        }
+
+        .header-search {
+            width: 272px;
+            height: 40px;
+            background-color: #E5E5E5;
+            border: 0;
+            font-size: 18px;
+            line-height: 40px;
+            padding: 0 9px;
+        }
+
+        .header-info {
+            color: #CBCBCB;
+            font-size: 14px;
+            margin-right: 25px;
+        }
+
+        .header-signee {
+            height: 38px;
+            width: 38px;
+            background-color: #0074D9;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 38px;
+            margin-right: 30px;
+        }
+
+        .content {
+            margin: 0 auto;
+            width: 750px;
+            background-color: #fbfbfb;
+            padding: 0 35px;
+            padding-bottom: 30px;
+        }
+
+        .survey-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 106px;
+        }
+
+        .green-circle, .red-circle {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .green-circle {
+            background-color: #2ECC40;
+        }
+        
+        .red-circle {
+            background-color: #FF4136;
+        }
+        .activity {
+            line-height: 16px;
+            font-size: 14px;
+            color: #949494;
+        }
+
+        .survey-header-info {
+            direction:rtl;
+        }
+
+        .survey-header h1 {
+            font-size: 32px;
+            font-weight: 400;
+        }
+        .question {
+            width: 680px;
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        .question-head h6 {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .question-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .question-body {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .question-body button {
+            color: #434343;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+            width: 70px;
+            height: 25px;
+            background-color: #EDEDED;
+            border: 0;
+        }
+
+        .question-body button:hover {
+            background-color: #dddddd;
+        }
+
+        .add-question {
+            width: 680px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            background-color:white;
+            padding:15px;
+        }
+
+        .add-question:hover {
+            border: 2px solid black;
+            padding: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span class="header-left">
+            <span>
+                <img class="header-img" src="chime-right.svg" />
+            </span>
+            <input class="header-search" type="text" placeholder="Search" />
+        </span>
+        <span class="header-right">
+            <span class="header-info">218 responses today</span>
+            <span class="header-signee">AK</span>
+        </span>
+    </header>
+    <div class="content">
+        <div class="survey-header">
+            <h1>October Company Social</h1>
+            <span class="survey-header-info">
+                <div class="activity"><span class=green-circle></span> active</div>
+                <div class="activity">edited 2 days ago</div>
+            </span>
+        </div>
+        <div class="question">
+            <div class="question-head">
+                <h6>October Social Theme</h6>
+                <span class="activity">closed 2 weeks ago <span class="red-circle"></span></span>
+            </div>
+            <div class="question-body">
+                <img src="q1stats.svg"/>
+                <button type="button">reopen</button>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-head">
+                <h6>Pizza Party Toppings</h6>
+                <span class="activity">closed 4 days ago <span class="red-circle"></span></span>
+            </div>
+            <div class="question-body">
+                <img src="q2stats.svg"/>
+                <button type="button">reopen</button>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-head">
+                <h6>Pizza Party Drinks</h6>
+                <span class="activity">closed 4 days ago <span class="red-circle"></span></span>
+            </div>
+            <div class="question-body">
+                <img src="q3stats.svg"/>
+                <button type="button">reopen</button>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-head">
+                <h6>Friday's pizza party experience?</h6>
+                <span class="activity">opened 3 hours ago <span class="green-circle"></span></span>
+            </div>
+            <div class="question-body">
+                <img src="q4stats.svg"/>
+                <button type="button">reopen</button>
+            </div>
+        </div>
+        <div class="add-question" onclick="">
+            New Question
+        </div>
+    </div>
+</body>
+
+</html>
