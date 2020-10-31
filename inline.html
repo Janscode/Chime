@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <script>
+            function show_done_button() {
+                done_button = document.body.querySelector('.done-button');
+                done_button.style.visibility = "visible"
+            }
+            function box_select(select) {
+                deselect = document.body.querySelector('.selected');
+
+                console.log(select)
+                console.log(deselect)
+
+                if (deselect) {
+                    deselect.classList.remove("selected");
+                }
+
+                select.classList.add("selected");
+
+                show_done_button();
+            }
+        </script>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                border: 0;
+                min-height: 0px;
+            }
+    
+            body {
+                    background-color: green;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                }
+            
+    
+            #inline-survey{
+                position:fixed;
+                top: 75px;
+                left:5px;
+                width:99%;
+                height:80px;
+                background-color:white;
+            }
+
+            #header img{
+                position: absolute;
+                top:25%;
+                left: 5px;
+                height: 40px;
+                width: 50px;
+            }
+
+            #header p{
+                position: absolute;
+                top: 40%;
+                left: 75px;
+                font-weight: bold;
+            }
+
+            .survey-question {
+                width: 250px;
+                position: absolute;
+                top: 40%;
+                bottom: 40%;
+                left: 315px;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+            }
+
+            .rating-boxes {
+                position: absolute;
+                top: 25%;
+                left: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+
+            .rating-button {
+                width: 40px;
+                height: 40px;
+                border: #c2c2c2 solid 1px;
+                background-color: #eaeaea;
+                border-radius: 5px;
+                color: #474747;
+                font-size: 18px;
+                margin: 0 4px; 
+            }
+
+            .selected, .rating-button:hover {
+                background-color: white;
+                border-color:#333;
+            }
+
+            .note {
+                width:40px;
+                color:#000;
+                font-size:10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                direction:rtl;
+            }
+
+            .note.right {
+                direction:ltr;
+            }
+
+            .done-button {
+                position: absolute;
+                top: 30%;
+                right: 100px;
+                visibility: hidden;
+                width: 65px;
+                height: 30px;
+                background-color: #1A73E8;
+                color: white;
+                border-radius: 5px;
+            }
+
+            .done-button:hover {
+                filter: drop-shadow(0 0 3px #1A73E8aa);
+            }
+
+            .dismiss-button {
+                position: absolute;
+                top: 30%;
+                right: 25px;
+                font-size: 15px;
+                border-bottom:#333 solid 1px;
+                font-weight: 200;
+                line-height: 30px;
+            }
+        
+            .dismiss-button:hover {
+                font-weight: 400;
+            }
+
+        </style>
+    </head>
+
+    <body>
+    
+        <div id="inline-survey">
+            <div id=header>
+                <img src="./favicon.ico"/>
+                <p>
+                    Question from 
+                    <i>
+                        HR
+                    </i>
+                    :
+                </p>
+            </div>
+            <div class="survey-question">
+                What did you think of our recent company outing?
+            </div>
+            <div class="rating-boxes">
+                <div class="note left">Extremely Dissatisfied</div>
+                <button type="button" class="rating-button" onclick="box_select(this)">1</button>
+                <button type="button" class="rating-button" onclick="box_select(this)">2</button>
+                <button type="button" class="rating-button" onclick="box_select(this)">3</button>
+                <button type="button" class="rating-button" onclick="box_select(this)">4</button>
+                <button type="button" class="rating-button" onclick="box_select(this)">5</button>
+                <div class="note right">Extremely Satisfied</div>
+            </div>
+            <button class="done-button">
+                Done
+            </button>
+            <a class="dismiss-button">
+                <i>
+                    Dismiss
+                </i>
+            </a>
+        </div>
+
+    </body>
+</html>
