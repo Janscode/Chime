@@ -68,6 +68,26 @@
             align-items: center;
         }
 
+        .header-middle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+         .header-middle a {
+            margin-left: 50px;
+            margin-right: 50px;
+            padding: 10px 0;
+            font-size: 15px;
+            font-weight: 200;
+            line-height: 30px;
+         }
+
+         .header-middle a:hover {
+            border-bottom:#333 solid 1px;
+            font-weight: 200;
+         }
+
         .header-img {
             height: 40px;
             margin: 0 20px;
@@ -234,6 +254,12 @@
                 <img class="header-img" src="chime-right.svg" />
             </span>
             <input class="header-search" type="text" placeholder="Search" />
+            
+        </span>
+        <span class="header-middle">
+                <a>Survey</a>
+                <a>Deploy</a>
+                <a>Export</a>
         </span>
         <span class="header-right">
             <span class="header-info">218 responses today</span>
