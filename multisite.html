@@ -10,6 +10,12 @@
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             }
 
+            #popup {
+                height: 260px;
+                width: 300px;
+                background-color: white;
+
+            }
         </style>
     </head>
     <body>
@@ -24,20 +30,20 @@
                 </p>
                 <img id="logo" src="./favicon.ico"/>
             </div>
-        </div>
-        <div id="content">
-            <p class="question">
-                What problems did you have with the venue of our latest corporate outing?
-            </p>
-            <input type="text" class="answer-box" name="answer">
-        </div>
-        <div if="footer">
-            <a id="dismiss-button">
-                Dismiss
-            </a>
-            <button id="done-button">
-                Done
-            </button>
+            <div id="content">
+                <p class="question">
+                    What problems did you have with the venue of our latest corporate outing?
+                </p>
+                <input type="text" class="answer-box" name="answer" value="Start your response...">
+            </div>
+            <div if="footer">
+                <a id="dismiss-button">
+                    Dismiss
+                </a>
+                <button id="done-button">
+                    Done
+                </button>
+            </div>
         </div>
     </body>
 </html>
