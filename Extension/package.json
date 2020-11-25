@@ -5,11 +5,15 @@
   "scripts": {
     "build": "web-ext build",
     "lint": "web-ext lint",
-    "start": "web-ext run"
+    "start": "web-ext run",
+    "pack": "webpack --config webpack.config.js"
   },
   "dependencies": {},
   "license": "MIT",
   "devDependencies": {
-    "web-ext": "^5.4.0"
+    "web-ext": "^5.4.0",
+    "webpack": "^5.6.0",
+    "webpack-cli": "^4.2.0",
+    "wepack-cli": "0.0.1-security"
   }
 }

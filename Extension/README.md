@@ -1,0 +1,3 @@
+To work on the extension first run `npm link ../chime-components` as well as `npm i`. To test you must run through Chrome.
+
+Currently the extension can put the integration into a `browser-action` window but that is it. This is the `index.html` file that I have on the root directory. The problem that is occuring is that `content-scripts` cannot be modules. Currently I am trying to migrate importing the module to a `background-page` and then use message passing between that and the script. This would enable us to have the content script recieve the injection it needs to input.

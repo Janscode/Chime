@@ -7,22 +7,15 @@
             "js": ["./Gmail/tooltip.js"]
         }
     ],
-    "icons" : {
-        "256": "../Favicon.ico"
-    },
     
-    "page_action": {
+    "browser_action": {
         "show_matches": ["<all_urls>"],
-        "default_icon": {
-            "256": "../Favicon.ico"
-        },
         "default_popup": "./index.html",
         "default_title": "Chime In"
     },
-    "name": "Chime In", 
-    "version": "0.0.0",
-
-    "web_accessible_resources": [
-        "node_modules/chime-components/dist/esm/*"
-    ]
+    "name": "Chime In",
+    "permissions": [
+        "tabs"
+    ],
+    "version": "0.0.0"
 }

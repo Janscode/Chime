@@ -1,15 +1,7 @@
-console.log(3)
+console.log("hey")
 
-// const script = document.createElement('script');
-// script.setAttribute("type", "module");
-// script.setAttribute("src", browser.getURL('node_modules/chime-components/dist/esm/chime-components.js'));
+chrome.extension.sendRequest({message: "contentScriptMessage"});
 
-// console.log(script); 
-
-// (async () => {
-//     const src = browser.runtime.getURL("node_modules/chime-components/dist/esm/chime-components.js");
-//     const contentMain = await import(src);
-//     console.log(contentMain);
-// })
-
-console.log(document.body.querySelector('p'));
+chrome.runtime.onMessage.addListener(function(request, sender) {
+    console.log(request.message);
+});  
