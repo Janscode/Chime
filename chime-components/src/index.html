@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/chime-components.esm.js"></script>
+    <script nomodule src="/build/chime-components.js"></script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <chime-button-group boxes="5" low-label="Extremely Dissatisfied" high-label="Extremely Satisfied"></chime-button-group>
+    <chime-gmail-tooltip question-originator="Jan">
+      <span slot="question">How do you feel about the frequency of virtual meetings?</span>
+      <chime-button-group slot="question-type" boxes="5" low-label="Extremely Dissatisfied" high-label="Extremely Satisfied"></chime-button-group>
+    </chime-gmail-tooltip>
+
+  </body>
+</html>

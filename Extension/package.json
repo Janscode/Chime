@@ -1,0 +1,15 @@
+{
+  "name": "chime-components",
+  "version": "0.0.0",
+  "description": "Chime web extension",
+  "scripts": {
+    "build": "web-ext build",
+    "lint": "web-ext lint",
+    "start": "web-ext run"
+  },
+  "dependencies": {},
+  "license": "MIT",
+  "devDependencies": {
+    "web-ext": "^5.4.0"
+  }
+}

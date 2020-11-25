@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    
+    "content_scripts": [
+        { 
+            "matches": ["https://mail.google.com/mail/*", "https://inbox.google.com/*"],
+            "js": ["./Gmail/tooltip.js"]
+        }
+    ],
+    "icons" : {
+        "256": "../Favicon.ico"
+    },
+    
+    "page_action": {
+        "show_matches": ["<all_urls>"],
+        "default_icon": {
+            "256": "../Favicon.ico"
+        },
+        "default_popup": "./index.html",
+        "default_title": "Chime In"
+    },
+    "name": "Chime In", 
+    "version": "0.0.0",
+
+    "web_accessible_resources": [
+        "node_modules/chime-components/dist/esm/*"
+    ]
+}
