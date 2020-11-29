@@ -15,7 +15,7 @@
     },
     "name": "Chime In",
     "permissions": [
-        "tabs"
+        "activeTab"
     ],
     "version": "0.0.0"
 }
