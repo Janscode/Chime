@@ -3,19 +3,11 @@
     
     "content_scripts": [
         { 
-            "matches": ["https://mail.google.com/mail/*", "https://inbox.google.com/*"],
-            "js": ["./Gmail/tooltip.js"]
+            "matches": ["<all_urls>"],
+            "js": ["require.js", "./cjs/chime-components.cjs.js", "./Gmail/tooltip.js"]
         }
     ],
-    
-    "browser_action": {
-        "show_matches": ["<all_urls>"],
-        "default_popup": "./index.html",
-        "default_title": "Chime In"
-    },
-    "name": "Chime In",
-    "permissions": [
-        "activeTab"
-    ],
+    "name": "Chime",
+    "permissions": [],
     "version": "0.0.0"
 }
