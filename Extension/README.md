@@ -1,3 +1,6 @@
-To work on the extension first run `npm link ../chime-components` as well as `npm i`. To test you must run through Chrome.
+To run the extension:
 
-Currently the extension can put the integration into a `browser-action` window but that is it. This is the `index.html` file that I have on the root directory. The problem that is occuring is that `content-scripts` cannot be modules. Currently I am trying to migrate importing the module to a `background-page` and then use message passing between that and the script. This would enable us to have the content script recieve the injection it needs to input.
+1. Install packages `npm i` in `/Extension`, `/chime-components`, and `/components-server`
+1. In the `components-server` directory run `npm run start` and leave that terminal instance running
+1. Load the extension manually into chrome or firefox OR run `npm run start` in `Extension` directory.
+1. To test the extension in its current form navigate to any webpage (I recommend `infolab.stanford.edu` cause there isn't a lot to load) and in the console input `document.body.append(document.createElement("chime-gmail-tooltip"));`. You should see the tooltip appear in the center of the screen.
