@@ -4,7 +4,7 @@
     "content_scripts": [
         { 
             "matches": ["<all_urls>"],
-            "js": ["./Gmail/tooltip.js"]
+            "js": ["./Gmail/inject.js"]
         }
     ],
     "name": "Chime",

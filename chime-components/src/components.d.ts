@@ -35,9 +35,13 @@ export namespace Components {
          */
         "position": {top: string, right: string};
         /**
+          * @prop question - the question being asked
+         */
+        "question": string;
+        /**
           * @prop questionOriginator - entity who asked the question
          */
-        "questionOriginator": string | null;
+        "questioner": string | null;
     }
 }
 declare global {
@@ -88,9 +92,13 @@ declare namespace LocalJSX {
          */
         "position"?: {top: string, right: string};
         /**
+          * @prop question - the question being asked
+         */
+        "question"?: string;
+        /**
           * @prop questionOriginator - entity who asked the question
          */
-        "questionOriginator"?: string | null;
+        "questioner"?: string | null;
     }
     interface IntrinsicElements {
         "chime-button-group": ChimeButtonGroup;

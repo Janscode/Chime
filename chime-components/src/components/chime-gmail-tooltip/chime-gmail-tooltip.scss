@@ -45,6 +45,7 @@
   margin: 5px 10px;
   border-bottom: #e5e5e5 solid 1px;
   padding-bottom: 3px;
+  line-height: normal;
 }
 
 .tooltip-footer {
@@ -58,11 +59,12 @@
     border-bottom:#333 solid 1px;
     font-weight: 200;
     line-height: 30px;
+    
+    &:hover {
+      font-weight: 400;
+    }
   }
 
-  a:hover {
-    font-weight: 400;
-  }
 
   button {
     width: 65px;

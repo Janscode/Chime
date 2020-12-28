@@ -15,7 +15,7 @@ export class ChimeGmailTooltip {
   /**
    * @prop questionOriginator - entity who asked the question
    */
-  @Prop() questionOriginator: string | null = null;
+  @Prop() questioner: string | null = null;
 
   /**
    * @prop position - object that takes a top and right value that
@@ -23,19 +23,24 @@ export class ChimeGmailTooltip {
    */
   @Prop() position: {top: string, right: string} = {top: "50%", right: "50%"};
 
+  /**
+   * @prop question - the question being asked
+   */
+  @Prop() question: string;
+
   render() {
     return (
       <Host>
         <div style={this.position} class="gmail-tooltip">
           <div class="tooltip-header">
-              {this.questionOriginator && <p>Question from <i>{this.questionOriginator}</i>:</p>}
+              {this.questioner && <p>Question from <i>{this.questioner}</i>:</p>}
               {this.companyImage && <img src={this.companyImage}/>}
           </div>
           <div class="tooltip-body">
             <p class="gmail-tooltip-question">
-              <slot name="question"></slot>
+              {this.question}
             </p>
-            <slot name="question-type"></slot>
+            <slot />
           </div>
           <div class="tooltip-footer">
             <a class="tooltip-dismiss">Dismiss</a>
