@@ -1,0 +1,27 @@
+.campaign {
+    padding: 0 35px;
+    background-color: #fbfbfb;
+
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 0;
+
+        &--text {
+            font-size: 32px;
+            display: inline-block;
+        }
+    }
+
+    &__add-button {
+        background-color: white;
+        width: 100%;
+        font-size: 18px;
+        height: 45px;
+        margin-bottom: 20px;
+
+        &:hover, &:focus {
+            border: 1px solid black;
+        }
+    }
+}

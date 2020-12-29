@@ -1,0 +1,19 @@
+.header {
+    height: 70px;
+    border-bottom: 2px solid #E8E8E8;
+    display: flex;
+    background-color: white;
+
+    &__img {
+        height: 40px;
+        margin: 15px 20px;
+    }
+
+    &__text, &__text:visited {
+        display: inline-block;
+        color: black;
+        text-decoration: none;
+        font-weight: 400;
+        line-height: 70px;
+    }
+}
