@@ -1,5 +1,5 @@
 import React from 'react'
-import { campaign } from '../../sample-campaign-data';
+import { campaign } from '../../sample-data/campaign';
 import LastModified from './LastModified/LastModified';
 import QuestionData from './QuestionData/QuestionData';
 import './Campaign.scss';
