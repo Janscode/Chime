@@ -1,5 +1,5 @@
 .campaign {
-    padding: 0 35px;
+    padding: 20px 35px;
     background-color: #fbfbfb;
 
     &__title {
@@ -18,7 +18,7 @@
         width: 100%;
         font-size: 18px;
         height: 45px;
-        margin-bottom: 20px;
+        border: 1px #e0e0e0 solid;
 
         &:hover, &:focus {
             border: 1px solid black;
