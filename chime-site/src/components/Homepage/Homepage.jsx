@@ -5,7 +5,7 @@ function Homepage(props) {
     return (
         <div className="homepage">
             <div className="homepage__demo">
-                <iframe className="homepage__demo-video" title="This is a demo video for what Chime has to offer." frameborder="0" allowfullscreen src="https://youtube.com/embed/ieD6xP5efnY"></iframe>
+                <iframe className="homepage__demo-video" title="This is a demo video for what Chime has to offer." frameBorder="0" allowFullScreen src="https://youtube.com/embed/ieD6xP5efnY"></iframe>
             </div>
             <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css" />
             <div className="homepage__form">
@@ -15,22 +15,23 @@ function Homepage(props) {
                     <form
                         action="https://digital.us2.list-manage.com/subscribe/post?u=836af7ddf847d4c8fe3052def&amp;id=af686395a7"
                         method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate"
-                        target="_blank" novalidate>
+                        target="_blank" noValidate>
                         <div id="mc_embed_signup_scroll">
                             <div className="mc-field-group">
-                                <label for="mce-EMAIL">Email Address </label>
+                                {/* TODO: REACT doesn't like the value prop */}
+                                <label htmlFor="mce-EMAIL">Email Address </label>
                                 <input type="email" value="" name="EMAIL" className="required email" id="mce-EMAIL" />
                             </div>
                             <div className="mc-field-group">
-                                <label for="mce-FNAME">First Name </label>
+                                <label htmlFor="mce-FNAME">First Name </label>
                                 <input type="text" value="" name="FNAME" className="required" id="mce-FNAME" />
                             </div>
                             <div className="mc-field-group">
-                                <label for="mce-LNAME">Last Name </label>
+                                <label htmlFor="mce-LNAME">Last Name </label>
                                 <input type="text" value="" name="LNAME" className="required" id="mce-LNAME" />
                             </div>
                             <div className="mc-field-group">
-                                <label for="mce-COMPANY">Company </label>
+                                <label htmlFor="mce-COMPANY">Company </label>
                                 <input type="text" value="" name="COMPANY" className="required" id="mce-COMPANY" />
                             </div>
                             <div id="mce-responses" className="clear">
@@ -38,7 +39,7 @@ function Homepage(props) {
                                 <div className="response" id="mce-success-response" style={{ display: "none" }}></div>
                             </div>
                             <div style={{ position: "absolute", left: -5000 }} aria-hidden="true"><input type="text"
-                                name="b_836af7ddf847d4c8fe3052def_af686395a7" tabindex="-1" value="" /></div>
+                                name="b_836af7ddf847d4c8fe3052def_af686395a7" tabIndex="-1" value="" /></div>
                             <div className="clear">
                                 <input type="submit" value="Subscribe" name="subscribe"
                                     id="mc-embedded-subscribe" className="button" />
