@@ -9,7 +9,7 @@ function Homepage(props) {
             </div>
             <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css" />
             <div className="homepage__form">
-                <p>Chime is currently in the test phase. If you are intrested, please give us your contact information and we will reach out with updates on availibility.</p>
+                <p style={{paddingBottom: 15}}>Chime is currently in the test phase. If you are intrested, please give us your contact information and we will reach out with updates on availibility.</p>
                 <div id="mc_embed_signup" className="text">
                     <h3 className="sign-up" style={{textAlign: "center"}}>Sign up for alerts</h3>
                     <form
