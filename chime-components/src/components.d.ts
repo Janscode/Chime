@@ -43,6 +43,8 @@ export namespace Components {
          */
         "questioner": string | null;
     }
+    interface ChimeSubmitButton {
+    }
 }
 declare global {
     interface HTMLChimeButtonGroupElement extends Components.ChimeButtonGroup, HTMLStencilElement {
@@ -57,9 +59,16 @@ declare global {
         prototype: HTMLChimeGmailTooltipElement;
         new (): HTMLChimeGmailTooltipElement;
     };
+    interface HTMLChimeSubmitButtonElement extends Components.ChimeSubmitButton, HTMLStencilElement {
+    }
+    var HTMLChimeSubmitButtonElement: {
+        prototype: HTMLChimeSubmitButtonElement;
+        new (): HTMLChimeSubmitButtonElement;
+    };
     interface HTMLElementTagNameMap {
         "chime-button-group": HTMLChimeButtonGroupElement;
         "chime-gmail-tooltip": HTMLChimeGmailTooltipElement;
+        "chime-submit-button": HTMLChimeSubmitButtonElement;
     }
 }
 declare namespace LocalJSX {
@@ -100,9 +109,12 @@ declare namespace LocalJSX {
          */
         "questioner"?: string | null;
     }
+    interface ChimeSubmitButton {
+    }
     interface IntrinsicElements {
         "chime-button-group": ChimeButtonGroup;
         "chime-gmail-tooltip": ChimeGmailTooltip;
+        "chime-submit-button": ChimeSubmitButton;
     }
 }
 export { LocalJSX as JSX };
@@ -111,6 +123,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "chime-button-group": LocalJSX.ChimeButtonGroup & JSXBase.HTMLAttributes<HTMLChimeButtonGroupElement>;
             "chime-gmail-tooltip": LocalJSX.ChimeGmailTooltip & JSXBase.HTMLAttributes<HTMLChimeGmailTooltipElement>;
+            "chime-submit-button": LocalJSX.ChimeSubmitButton & JSXBase.HTMLAttributes<HTMLChimeSubmitButtonElement>;
         }
     }
 }
