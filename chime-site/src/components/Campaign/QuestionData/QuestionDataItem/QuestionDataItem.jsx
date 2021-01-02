@@ -1,29 +1,40 @@
 import React from 'react';
 import './QuestionDataItem.scss';
+import PropTypes from 'prop-types';
 
 function QuestionDataItem(props) {
-    const frequency = (props.answer.selections / props.responses) * 100;
-    const color = "#f5f5f5";
-    return (
-        <div
-            className="question-data-item"
-        >
-            <div
-                className="question-data-item__chart"
-                style={{ background: `linear-gradient(to right, ${color}, ${color} ${frequency}%, transparent ${frequency}%, transparent 100%)` }}
-            >
-                <span>
-                    {props.answer.item}
-                </span>
-                <span className="question-data-item--detail">
-                    {`${Math.round(frequency)}%`}
-                </span>
-            </div>
-            <div className="question-data-item--detail">
-                {props.answer.selections}
-            </div>
-        </div>
-    )
+  const frequency = (props.selections / props.responses) * 100;
+  const color = '#f5f5f5';
+  return (
+    <div
+      className="question-data-item"
+    >
+      <div
+        className="question-data-item__chart"
+        style={{
+          // eslint-disable-next-line
+          background: `linear-gradient(to right, ${color}, ${color} ${frequency}%, transparent ${frequency}%, transparent 100%)`,
+        }}
+      >
+        <span>
+          {props.item}
+        </span>
+        <span className="question-data-item--detail">
+          {`${Math.round(frequency)}%`}
+        </span>
+      </div>
+      <div className="question-data-item--detail">
+        {props.selections}
+      </div>
+    </div>
+  );
 }
 
-export default QuestionDataItem
+QuestionDataItem.propTypes = {
+  item: PropTypes.string.isRequired,
+  selections: PropTypes.number.isRequired,
+  responses: PropTypes.number.isRequired,
+};
+
+
+export default QuestionDataItem;

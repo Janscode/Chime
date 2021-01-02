@@ -16,7 +16,7 @@
 //                 {
 //                     text: "Investment Management",
 //                     route: "/",
-//                 }, 
+//                 },
 //                 {
 //                     text: "Trading",
 //                     route: "/",
@@ -58,7 +58,7 @@
 //                 {
 //                     text: "Costs of Investing",
 //                     route: "/",
-//                 }, 
+//                 },
 //             ]
 //         },
 //         {
@@ -76,7 +76,7 @@
 //                 {
 //                     text: "How We Compare",
 //                     route: "/",
-//                 }, 
+//                 },
 //                 {
 //                     text: "Reviews & Awards",
 //                     route: "/",
@@ -98,7 +98,7 @@
 //                 {
 //                     text: "Media & Live Programs",
 //                     route: "/",
-//                 }, 
+//                 },
 //                 {
 //                     text: "Our Experts",
 //                     route: "/",
@@ -113,10 +113,10 @@
 // };
 
 export const navbar = {
-    routes: [
-        {
-            text: "Manage Campaigns",
-            route: "/campaigns",
-        }
-    ]
-}
+  routes: [
+    {
+      text: 'Manage Campaigns',
+      route: '/campaigns',
+    },
+  ],
+};
