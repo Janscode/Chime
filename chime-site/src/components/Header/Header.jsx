@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.scss';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
 function Header() {
     return (
@@ -25,16 +25,12 @@ function Header() {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Container>
-                    <Nav className="m-auto">
-                        <Nav.Link className="navigation-item px-3" href="#">About</Nav.Link>
-                        <Nav.Link className="navigation-item px-3" href="#">Campaigns</Nav.Link>
-                        <Nav.Link className="navigation-item px-3" href="#">Manage</Nav.Link>
-                    </Nav>
-                </Container>
-                <div
-                    className="text-right"
-                >
+                <Nav>
+                    <Nav.Link className="px-3" href="#">About</Nav.Link>
+                    <Nav.Link className="px-3" href="#">Campaigns</Nav.Link>
+                    <Nav.Link className="px-3" href="#">Manage</Nav.Link>
+                </Nav>
+                <div className="ml-auto">
                     Account info
                 </div>
             </Navbar.Collapse>
