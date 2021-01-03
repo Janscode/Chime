@@ -1,13 +1,15 @@
 import React from 'react';
 import './QuestionDataItem.scss';
 import PropTypes from 'prop-types';
+import { Container } from 'react-bootstrap';
 
 function QuestionDataItem(props) {
   const frequency = (props.selections / props.responses) * 100;
   const color = '#f5f5f5';
   return (
-    <div
-      className="question-data-item"
+    <Container
+      className={`question-data-item d-flex ${props.className}`}
+      fluid
     >
       <div
         className="question-data-item__chart"
@@ -26,11 +28,12 @@ function QuestionDataItem(props) {
       <div className="question-data-item--detail">
         {props.selections}
       </div>
-    </div>
+    </Container>
   );
 }
 
 QuestionDataItem.propTypes = {
+  className: PropTypes.string,
   item: PropTypes.string.isRequired,
   selections: PropTypes.number.isRequired,
   responses: PropTypes.number.isRequired,

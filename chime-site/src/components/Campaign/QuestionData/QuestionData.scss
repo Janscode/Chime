@@ -1,48 +1,21 @@
 .question-data {
-    padding: 15px;
     background-color: white;
-    margin-bottom: 30px;
     border: 1px #e0e0e0 solid;
 
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 0;
-
-        &--text {
-            font-size: 18px;
-        }
+    &--text {
+        font-size: 18px;
     }
-
 }
 
-.infogroup {
-    display: flex;
-    align-items: baseline;
-    &__chart {
-        display: inline-block;
-        width: 70%;
-    }
-    
-    &__toggle {
-        height: 100%;
-        width: 30%;
-        display:flex;
-        justify-content: right;
-        flex-wrap: wrap;
-        margin: 6px 0;
+.infogroup-button {
+    text-align: center;
+    width: 75px;
+    font-size: 14px;
+    height: 28px;
+    margin: 3px 10px;
 
-        &--button {
-            text-align: center;
-            width: 75px;
-            font-size: 14px;
-            height: 28px;
-            margin: 3px 10px;
-
-            &:hover, &:focus {
-                background-color: #e0e0e0;
-            }
-        }
+    &:hover,
+    &:focus {
+        background-color: #e0e0e0;
     }
 }
