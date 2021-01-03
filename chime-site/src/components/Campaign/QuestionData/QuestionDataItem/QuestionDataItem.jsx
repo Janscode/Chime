@@ -1,7 +1,7 @@
 import React from 'react';
 import './QuestionDataItem.scss';
 import PropTypes from 'prop-types';
-import { Container } from 'react-bootstrap';
+import { Col, Container } from 'react-bootstrap';
 
 function QuestionDataItem(props) {
   const frequency = (props.selections / props.responses) * 100;
@@ -11,7 +11,7 @@ function QuestionDataItem(props) {
       className={`question-data-item d-flex ${props.className}`}
       fluid
     >
-      <div
+      <Col xs={11}
         className="question-data-item__chart"
         style={{
           // eslint-disable-next-line
@@ -24,10 +24,10 @@ function QuestionDataItem(props) {
         <span className="question-data-item--detail">
           {`${Math.round(frequency)}%`}
         </span>
-      </div>
-      <div className="question-data-item--detail">
+      </Col>
+      <Col className="question-data-item--detail">
         {props.selections}
-      </div>
+      </Col>
     </Container>
   );
 }
