@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.scss';
 import {Navbar, Nav} from 'react-bootstrap';
+import Account from './Account/Account';
 
 function Header() {
   return (
@@ -30,9 +31,8 @@ function Header() {
           <Nav.Link className="px-3" href="/campaigns">Campaigns</Nav.Link>
           <Nav.Link className="px-3" href="#">Manage</Nav.Link>
         </Nav>
-        <div className="ml-auto">
-                    Account info
-        </div>
+        <Account className="ml-auto">
+        </Account>
       </Navbar.Collapse>
     </Navbar>
   );
