@@ -1,9 +1,9 @@
 import React from 'react';
-import {campaign} from '../../sample-data/campaign';
+import { campaign } from '../../sample-data/campaign';
 import LastModified from './LastModified/LastModified';
 import QuestionData from './QuestionData/QuestionData';
 import './Campaign.scss';
-import {Container, Row} from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 function Campaign() {
   return (

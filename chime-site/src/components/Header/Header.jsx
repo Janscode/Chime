@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.scss';
-import {Navbar, Nav} from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import Account from './Account/Account';
 
 function Header() {

@@ -3,10 +3,10 @@ import './App.scss';
 import Header from './components/Header/Header';
 import Campaign from './components/Campaign/Campaign';
 import Homepage from './components/Homepage/Homepage';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import {Container} from 'react-bootstrap';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import SignUp from './components/Header/Account/SignUp/SignUp';
-import {AuthProvider} from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (

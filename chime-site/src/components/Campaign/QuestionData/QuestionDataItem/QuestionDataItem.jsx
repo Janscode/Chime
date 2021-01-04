@@ -1,7 +1,7 @@
 import React from 'react';
 import './QuestionDataItem.scss';
 import PropTypes from 'prop-types';
-import {Col, Container} from 'react-bootstrap';
+import { Col, Container } from 'react-bootstrap';
 
 function QuestionDataItem(props) {
   const frequency = (props.selections / props.responses) * 100;

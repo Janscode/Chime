@@ -30,7 +30,7 @@ function LastModified(props) {
       <span
         className="circle"
         style={
-          props.active ? {backgroundColor: '#2ECC40'} : {backgroundColor: '#FF4136'}
+          props.active ? { backgroundColor: '#2ECC40' } : { backgroundColor: '#FF4136' }
         }
       ></span>
     </span>

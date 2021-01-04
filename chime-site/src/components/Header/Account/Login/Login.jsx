@@ -1,8 +1,8 @@
-import {Alert, Button, Container, Form, Modal} from 'react-bootstrap';
-import React, {useRef, useState} from 'react';
+import { Alert, Button, Container, Form, Modal } from 'react-bootstrap';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {useAuth} from '../../../../contexts/AuthContext';
-import {Link} from 'react-router-dom';
+import { useAuth } from '../../../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Login(props) {
   const emailRef = useRef();
@@ -10,7 +10,7 @@ function Login(props) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,6 +19,8 @@ function Login(props) {
       setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      props.onClose();
+      setLoading(false);
     } catch {
       setError('Username or password is incorrect');
     }

@@ -3,7 +3,7 @@ import LastModified from '../LastModified/LastModified';
 import './QuestionData.scss';
 import QuestionDataItem from './QuestionDataItem/QuestionDataItem';
 import PropTypes from 'prop-types';
-import {Col, Container, Row} from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 function QuestionData(props) {
   const selection = (item) => item.selections;

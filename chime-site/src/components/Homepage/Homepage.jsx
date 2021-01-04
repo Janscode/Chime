@@ -19,12 +19,12 @@ function Homepage() {
         type="text/css"
       />
       <div className="homepage__form">
-        <p style={{paddingBottom: 15}}>
+        <p style={{ paddingBottom: 15 }}>
           {/* eslint-disable-next-line */}
           Chime is currently in the test phase. If you are intrested, please give us your contact information and we will reach out with updates on availibility.
         </p>
         <div id="mc_embed_signup" className="text">
-          <h3 className="sign-up" style={{textAlign: 'center'}}>Sign up for alerts</h3>
+          <h3 className="sign-up" style={{ textAlign: 'center' }}>Sign up for alerts</h3>
           <form
             action="https://digital.us2.list-manage.com/subscribe/post?u=836af7ddf847d4c8fe3052def&amp;id=af686395a7"
             className="validate"
@@ -59,11 +59,28 @@ function Homepage() {
                 <input type="text" value="" name="COMPANY" className="required" id="mce-COMPANY" />
               </div>
               <div id="mce-responses" className="clear">
-                <div className="response" id="mce-error-response" style={{display: 'none'}}></div>
-                <div className="response" id="mce-success-response" style={{display: 'none'}}></div>
+                <div
+                  className="response"
+                  id="mce-error-response"
+                  style={{ display: 'none' }}
+                ></div>
+                <div
+                  className="response"
+                  id="mce-success-response"
+                  style={{ display: 'none' }}
+                ></div>
               </div>
-              <div style={{position: 'absolute', left: -5000}} aria-hidden="true"><input type="text"
-                name="b_836af7ddf847d4c8fe3052def_af686395a7" tabIndex="-1" value="" /></div>
+              <div
+                style={{ position: 'absolute', left: -5000 }}
+                aria-hidden="true"
+              >
+                <input
+                  type="text"
+                  name="b_836af7ddf847d4c8fe3052def_af686395a7"
+                  tabIndex="-1"
+                  value=""
+                />
+              </div>
               <div className="clear">
                 <input type="submit" value="Subscribe" name="subscribe"
                   id="mc-embedded-subscribe" className="button" />
