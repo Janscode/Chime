@@ -11,10 +11,10 @@ export function useCampaign() {
 export function CampaignProvider({ children }) {
   const campaignsRef = db.collection('campaigns');
 
-  function getCampaigns() {
+  function getCampaignsForCurrUser() {
     if (auth.currentUser) {
       return campaignsRef
-          .where('owners', 'array-contains', String(auth.currentUser.uid))
+          .where('collaborators', 'array-contains', String(auth.currentUser.uid))
           .get();
     } else {
       return null;
@@ -32,17 +32,49 @@ export function CampaignProvider({ children }) {
   function addCampaign(name, owners, collabName, recipients) {
     return campaignsRef
         .add({
+          active: true,
           name: name,
           collaborators: owners,
           collabName: collabName,
           recipients: recipients,
           lastModified: new Date(),
+          questions: [],
         });
   }
 
+  function getCampaignById(id) {
+    return campaignsRef
+        .doc(id)
+        .get();
+  }
+
+  function addQuestionToCampaign(campaignId, text, type, author = '', options = []) {
+    return campaignsRef
+        .doc(campaignId)
+        .collection('questions')
+        .add({
+          active: true,
+          author: author,
+          lastModified: new Date(),
+          text: text,
+          type: type,
+          options: options,
+        });
+  }
+
+  function getCampaignQuestions(campaignId) {
+    return campaignsRef
+        .doc(campaignId)
+        .collection('questions')
+        .get();
+  }
+
   const value = {
-    getCampaigns,
+    getCampaignsForCurrUser,
+    getCampaignById,
+    getCampaignQuestions,
     addCampaign,
+    addQuestionToCampaign,
   };
 
   return (

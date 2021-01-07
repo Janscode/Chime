@@ -2,10 +2,11 @@ import React from 'react';
 import './LastModified.scss';
 import PropTypes from 'prop-types';
 
+// TODO: Fix date time interpretation
 function LastModified(props) {
   const oneHour = 1000 * 60 * 60;
   const now = new Date();
-  const then = new Date(props.update);
+  const then = new Date(props.update?.seconds | Date.UTC(2021, 0, 1));
   const start = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
   const end = Date.UTC(then.getFullYear(), then.getMonth(), then.getDate());
 
