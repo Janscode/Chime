@@ -24,7 +24,6 @@ function ProfileDropdown() {
     children: PropTypes.node,
     onClick: PropTypes.func,
   };
-
   return (
     <Dropdown>
       <Dropdown.Toggle as={UserProfile}>
@@ -33,6 +32,10 @@ function ProfileDropdown() {
         <span className="profile-icon">{String(currentUser.email[0]).toUpperCase()}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
+        <Dropdown.Header>
+          {currentUser.email}
+        </Dropdown.Header>
+        <Dropdown.Divider />
         <Dropdown.Item
           className="text-center"
           eventKey="1"

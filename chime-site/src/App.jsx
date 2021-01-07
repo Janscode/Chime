@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import SignUp from './components/Header/Account/SignUp/SignUp';
 import { AuthProvider } from './contexts/AuthContext';
+import { CampaignProvider } from './contexts/CampaignContext';
 
 function App() {
   return (
@@ -18,8 +19,10 @@ function App() {
             <Route path='/' exact>
               <Homepage />
             </Route>
-            <Route path='/campaigns' exact>
-              <Campaign />
+            <Route path='/campaigns'>
+              <CampaignProvider>
+                <Campaign />
+              </CampaignProvider>
             </Route>
             <Route path='/signup' exact>
               <SignUp />

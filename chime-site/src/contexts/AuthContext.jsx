@@ -24,6 +24,10 @@ export function AuthProvider({ children }) {
     return auth.signOut();
   }
 
+  function getJWT() {
+    return auth.currentUser?.getIdToken();
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -35,6 +39,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    getJWT,
     login,
     signOut,
     signup,

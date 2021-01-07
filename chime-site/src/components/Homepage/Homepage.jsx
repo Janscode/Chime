@@ -36,27 +36,45 @@ function Homepage() {
           >
             <div id="mc_embed_signup_scroll">
               <div className="mc-field-group">
-                {/* TODO: REACT doesn't like the value prop */}
+                {/* TODO: I don't think this works anymore */}
                 <label htmlFor="mce-EMAIL">Email Address </label>
                 <input
                   className="required email"
                   id="mce-EMAIL"
                   name="EMAIL"
                   type="email"
-                  value=""
+                  defaultValue=""
                 />
               </div>
               <div className="mc-field-group">
                 <label htmlFor="mce-FNAME">First Name </label>
-                <input type="text" value="" name="FNAME" className="required" id="mce-FNAME" />
+                <input
+                  type="text"
+                  defaultValue=""
+                  name="FNAME"
+                  className="required"
+                  id="mce-FNAME"
+                />
               </div>
               <div className="mc-field-group">
                 <label htmlFor="mce-LNAME">Last Name </label>
-                <input type="text" value="" name="LNAME" className="required" id="mce-LNAME" />
+                <input
+                  type="text"
+                  defaultValue=""
+                  name="LNAME"
+                  className="required"
+                  id="mce-LNAME"
+                />
               </div>
               <div className="mc-field-group">
                 <label htmlFor="mce-COMPANY">Company </label>
-                <input type="text" value="" name="COMPANY" className="required" id="mce-COMPANY" />
+                <input
+                  type="text"
+                  defaultValue=""
+                  name="COMPANY"
+                  className="required"
+                  id="mce-COMPANY"
+                />
               </div>
               <div id="mce-responses" className="clear">
                 <div

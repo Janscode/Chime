@@ -1,0 +1,19 @@
+.campaign {
+    background-color: #fbfbfb;
+
+    &--text {
+        font-size: 32px;
+    }
+
+    &__add-button {
+        background-color: white;
+        width: 100%;
+        font-size: 18px;
+        height: 45px;
+        border: 1px #e0e0e0 solid;
+
+        &:hover, &:focus {
+            border: 1px solid black;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import LastModified from '../LastModified/LastModified';
+import LastModified from '../../LastModified/LastModified';
 import './QuestionData.scss';
 import QuestionDataItem from './QuestionDataItem/QuestionDataItem';
 import PropTypes from 'prop-types';
