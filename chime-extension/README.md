@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# Getting Started with chime-extension
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+First, contact the team to ensure you have the environment variables necessary for running the project.
+
+1. `npm run build`
+1. Load build folder into chrome.
 
 ## Available Scripts
 
