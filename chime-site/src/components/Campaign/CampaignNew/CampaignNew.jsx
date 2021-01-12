@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Form, Card, Col, Row, Container, InputGroup, FormControl, Button } from 'react-bootstrap';
 import './CampaignNew.scss';
 import { useCampaign } from '../../../contexts/CampaignContext';
+import { useAuth } from '../../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 
 function CampaignNew() {
@@ -10,9 +11,11 @@ function CampaignNew() {
   const ownerInput = useRef();
   const collabID = useRef();
   const recipientInput = useRef();
-  const [owners, setOwners] = useState([]);
-  const [recipients, setRecipients] = useState([]);
+  const [recipients, setRecipients] = useState(['*']);
+  const { currentUser } = useAuth();
   const { addCampaign } = useCampaign();
+
+  const [owners, setOwners] = useState([currentUser.uid]);
 
   const getOwner = (e) => {
     e.preventDefault();
