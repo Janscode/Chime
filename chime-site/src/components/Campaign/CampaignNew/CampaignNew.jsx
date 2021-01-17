@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './CampaignNew.scss';
 import { useCampaign } from '../../../contexts/CampaignContext';
-// import { useAuth } from '../../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 import UserSearch from './UserSearch/UserSearch';
 
@@ -12,8 +11,6 @@ function CampaignNew() {
   const ownerInput = useRef();
   const collabID = useRef();
   const recipientInput = useRef();
-
-  // const { currentUser } = useAuth();
   const { addCampaign } = useCampaign();
 
   const onSubmit = (e) => {
