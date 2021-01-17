@@ -10,26 +10,18 @@ export function useCampaign() {
 
 export function CampaignProvider({ children }) {
   const campaignsRef = db.collection('campaigns');
-
-  function getCampaignsForCurrUser() {
-    if (auth.currentUser) {
-      return campaignsRef
-          .where('collaborators', 'array-contains', String(auth.currentUser.uid))
-          .get();
-    } else {
-      return null;
-    }
-  }
+  // TODO: Refactor this into its own context
+  const usersRef = db.collection('users');
 
   /**
    * Creates a new document in the campaigns collection.
    * @param {string} name name of the new campaign
-   * @param {string[]} owners list of ids for the owners of teh campaign
    * @param {string} collabName identifier the collaborators use on their surveys. i.e. 'HR'
+   * @param {string[]} owners list of ids for the owners of teh campaign
    * @param {string[]} recipients list of ids for the people who will recieve this survey
    * @return {Promise} document reference pointing to the new document
    */
-  function addCampaign(name, owners, collabName, recipients) {
+  function addCampaign(name, collabName, owners = [], recipients = []) {
     return campaignsRef
         .add({
           active: true,
@@ -40,12 +32,6 @@ export function CampaignProvider({ children }) {
           lastModified: new Date(),
           questions: [],
         });
-  }
-
-  function getCampaignById(id) {
-    return campaignsRef
-        .doc(id)
-        .get();
   }
 
   function addQuestionToCampaign(campaignId, text, type, author = '', options = []) {
@@ -62,6 +48,22 @@ export function CampaignProvider({ children }) {
         });
   }
 
+  function getCampaignById(id) {
+    return campaignsRef
+        .doc(id)
+        .get();
+  }
+
+  function getCampaignsForCurrUser() {
+    if (auth.currentUser) {
+      return campaignsRef
+          .where('collaborators', 'array-contains', String(auth.currentUser.uid))
+          .get();
+    } else {
+      return null;
+    }
+  }
+
   function getCampaignQuestions(campaignId) {
     return campaignsRef
         .doc(campaignId)
@@ -69,17 +71,33 @@ export function CampaignProvider({ children }) {
         .get();
   }
 
+  function getUserByEmail(email) {
+    return usersRef
+        .where('email', '==', email)
+        .limit(1)
+        .get();
+  }
+
+  function getUserById(id) {
+    return usersRef
+        .where('uid', '==', id)
+        .limit(1)
+        .get();
+  }
+
   const value = {
-    getCampaignsForCurrUser,
-    getCampaignById,
-    getCampaignQuestions,
     addCampaign,
     addQuestionToCampaign,
+    getCampaignById,
+    getCampaignsForCurrUser,
+    getCampaignQuestions,
+    getUserByEmail,
+    getUserById,
   };
 
   return (
     <CampaignContext.Provider value={value}>
-      { children }
+      { children}
     </CampaignContext.Provider>
   );
 }

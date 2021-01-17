@@ -31,7 +31,18 @@ function CampaignHome() {
     <>
       {
         loading ?
-          <Spinner animation="border" role="status">
+          <Spinner
+            animation="border"
+            style={{
+              position: 'fixed',
+              zIndex: 10,
+              width: '50',
+              height: '50',
+              left: 'calc(50% - 50px)',
+              top: 'calc(20% - 50px)',
+            }}
+            role="status"
+          >
             <span className="sr-only">loading...</span>
           </Spinner> :
           <Container

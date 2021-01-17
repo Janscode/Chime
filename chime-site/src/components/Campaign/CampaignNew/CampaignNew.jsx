@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { Form, Card, Col, Row, Container, InputGroup, FormControl, Button } from 'react-bootstrap';
+import React, { useRef } from 'react';
+import { Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './CampaignNew.scss';
 import { useCampaign } from '../../../contexts/CampaignContext';
-import { useAuth } from '../../../contexts/AuthContext';
+// import { useAuth } from '../../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
+import UserSearch from './UserSearch/UserSearch';
 
 function CampaignNew() {
   const history = useHistory();
@@ -11,34 +12,25 @@ function CampaignNew() {
   const ownerInput = useRef();
   const collabID = useRef();
   const recipientInput = useRef();
-  const [recipients, setRecipients] = useState(['*']);
-  const { currentUser } = useAuth();
+
+  // const { currentUser } = useAuth();
   const { addCampaign } = useCampaign();
-
-  const [owners, setOwners] = useState([currentUser.uid]);
-
-  const getOwner = (e) => {
-    e.preventDefault();
-    if (ownerInput.current.value !== '') {
-      setOwners([...owners, ownerInput.current.value]);
-      ownerInput.current.value = '';
-    }
-  };
-
-  const getRecipient = (e) => {
-    e.preventDefault();
-    if (recipientInput.current.value !== '') {
-      setRecipients([...recipients, recipientInput.current.value]);
-      recipientInput.current.value = '';
-    }
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const owners = ownerInput.current.map((value) => {
+      return value.uid;
+    });
+
+    const recipients = recipientInput.current.map((value) => {
+      return value.uid;
+    });
+
     addCampaign(
         surveyName.current.value,
-        owners,
         collabID.current.value,
+        owners,
         recipients,
     )
         .then(() => {
@@ -87,91 +79,14 @@ function CampaignNew() {
           </Col>
         </Row>
         <hr />
-        <Row>
-          <Form.Label
-            column
-            sm="auto"
-            xs={12}
-          >
-            Collaborators
-          </Form.Label>
-          <Col>
-            <InputGroup>
-              <FormControl
-                aria-label="Collaborators"
-                aria-describedby="basic-addon1"
-                ref={ownerInput}
-                type="text"
-              />
-              <InputGroup.Append>
-                <Button
-                  variant="outline-success"
-                  onClick={getOwner}
-                >
-                  Add
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="my-3">
-          {owners.map((owner, idx) => {
-            return (
-              <Card
-                bg="light"
-                className="m-2"
-                key={idx}
-              >
-                <Card.Body>
-                  {owner}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </Row>
-        {/* TODO: Add actual user lookup */}
-        <Row className="mt-3">
-          <Form.Label
-            column
-            sm="auto"
-            xs={12}
-          >
-            Recipients
-          </Form.Label>
-          <Col>
-            <InputGroup>
-              <FormControl
-                aria-label="Recipients"
-                aria-describedby="basic-addon1"
-                ref={recipientInput}
-                type="text"
-              />
-              <InputGroup.Append>
-                <Button
-                  variant="outline-success"
-                  onClick={getRecipient}
-                >
-                  Add
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="my-3">
-          {recipients.map((recipient, idx) => {
-            return (
-              <Card
-                bg="light"
-                className="m-2"
-                key={idx}
-              >
-                <Card.Body>
-                  {recipient}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </Row>
+        <UserSearch
+          ref={ownerInput}
+          type="Collaborators"
+        />
+        <UserSearch
+          ref={recipientInput}
+          type="Recipients"
+        />
         <Button block variant="light" type="submit">Done!</Button>
       </Form>
     </Container>
