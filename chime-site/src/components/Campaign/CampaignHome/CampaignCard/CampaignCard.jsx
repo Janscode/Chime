@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Accordion, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function CampaignCard({ id, campaign }) {
+function CampaignCard({ docId, campaign }) {
   let body;
   // TODO: query for active questions
   if ('questions' in campaign && campaign.questions.length === 0) {
@@ -43,7 +43,7 @@ function CampaignCard({ id, campaign }) {
         <Accordion.Collapse eventKey="0">
           <Card.Body className="text-center">
             {body}
-            <Link to={`/campaigns/${id}`}>Click here to view full campaign details.</Link>
+            <Link to={`/campaigns/${docId}`}>Click here to view full campaign details.</Link>
           </Card.Body>
         </Accordion.Collapse>
       </Card>
@@ -53,7 +53,7 @@ function CampaignCard({ id, campaign }) {
 
 CampaignCard.propTypes = {
   campaign: PropTypes.object,
-  id: PropTypes.string.required,
+  docId: PropTypes.string.required,
 };
 
 export default CampaignCard;

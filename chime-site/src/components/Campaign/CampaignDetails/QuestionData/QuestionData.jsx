@@ -5,6 +5,7 @@ import './QuestionData.scss';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
 
+// TODO: Max this functional again
 function QuestionData(props) {
   // const selection = (item) => item.selections;
   // const sum = (prev, next) => prev + next;

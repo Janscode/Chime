@@ -75,7 +75,7 @@ function CampaignHome() {
                 </p> :
                 dbContent.current?.docs.map((doc) => {
                   return (
-                    <CampaignCard key={doc.id} id={doc.id} campaign={doc.data()} />
+                    <CampaignCard key={doc.id} docId={doc.id} campaign={doc.data()} />
                   );
                 })
             }

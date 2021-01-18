@@ -12,8 +12,8 @@ function CampaignDetails() {
   const [error, setError] = useState('');
   const [questions, setQuestions] = useState();
   const { getCampaignById, getCampaignQuestions } = useCampaign();
+  const [campaign, setCampaign] = useState();
   const { campaignId } = useParams();
-  const campaignRef = useRef();
   const errorRef = useRef();
   const history = useHistory();
 
@@ -22,7 +22,7 @@ function CampaignDetails() {
   useEffect(() => {
     getCampaignById(campaignId)
         .then((value) => {
-          campaignRef.current = value;
+          campaign = setCampaign(value);
           setLoading(false);
         })
         .catch((error) => {
@@ -45,17 +45,17 @@ function CampaignDetails() {
   };
 
   if (!loading) {
-    if (campaignRef.current.exists) {
+    if (campaign.exists) {
       header = (
         <Row
           className="justify-content-between pb-4"
           noGutters
         >
-          <h6 className="campaign--text"> {campaignRef.current.get('name')} </h6>
+          <h6 className="campaign--text"> {campaign.data().name} </h6>
           {/* TODO: Fix this */}
           <LastModified
-            active={campaignRef.current.get('active')}
-            update={campaignRef.current.get('lastModified')}
+            active={campaign.data().active}
+            update={campaign.data().lastModified.toDate().toString()}
           />
         </Row>
       );
@@ -84,10 +84,9 @@ function CampaignDetails() {
         return (
           <QuestionData
             active={question.data().active}
-            // answers={question.answers}
             key={idx}
             question={question.data().text}
-            updated={question.data().LastModified}
+            lastModified={question.data().lastModified.toDate().toString()}
           />
         );
       })}

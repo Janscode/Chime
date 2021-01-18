@@ -12,6 +12,8 @@ export function CampaignProvider({ children }) {
   const campaignsRef = db.collection('campaigns');
   // TODO: Refactor this into its own context
   const usersRef = db.collection('users');
+  // TODO: Refactor this into its own context
+  const questionsRef = db.collection('questions');
 
   /**
    * Creates a new document in the campaigns collection.
@@ -35,12 +37,11 @@ export function CampaignProvider({ children }) {
   }
 
   function addQuestionToCampaign(campaignId, text, type, author = '', options = []) {
-    return campaignsRef
-        .doc(campaignId)
-        .collection('questions')
+    return questionsRef
         .add({
           active: true,
           author: author,
+          campaignId: campaignId,
           lastModified: new Date(),
           text: text,
           type: type,
@@ -64,12 +65,19 @@ export function CampaignProvider({ children }) {
     }
   }
 
+  // TODO: support pagination
   function getCampaignQuestions(campaignId) {
-    return campaignsRef
-        .doc(campaignId)
-        .collection('questions')
+    return questionsRef
+        .where('campaignId', '==', campaignId)
         .get();
   }
+
+  // function getCampaignQuestions(campaignId) {
+  //   return campaignsRef
+  //       .doc(campaignId)
+  //       .collection('questions')
+  //       .get();
+  // }
 
   function getUserByEmail(email) {
     return usersRef
