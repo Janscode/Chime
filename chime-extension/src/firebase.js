@@ -13,10 +13,11 @@ const app = firebase.initializeApp({
 });
 
 const db = app.firestore();
-// if (location.hostname === 'localhost') {
-//   console.log('Connecting to emulated db...');
-//   db.useEmulator('localhost', 8080);
-// }
+// TODO: change this in prod
+if (true) {
+  console.log('Connecting to emulated db...');
+  db.useEmulator('localhost', 8080);
+}
 export { db };
 export const auth = app.auth();
 export default app;

@@ -1,16 +1,67 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/chime-components.esm.js"></script>
-    <script nomodule src="/build/chime-components.js"></script>
-    <style>
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+
+  <script type="module" src="/build/chime-components.esm.js"></script>
+  <script nomodule src="/build/chime-components.js"></script>
+  <script>
+    function toggleView(elem) {
+      let prev = document.querySelector('.visible');
+      let next = document.querySelector(`#${elem.value}`);
+      if (prev) {
+        prev.classList.remove('visible');
+      }
+      next.classList.add('visible');
+    }
+  </script>
+  <style>
+    .visible {
+      display:block !important;
+    }
+
+    .chime-element {
+      display: none;
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display: sticky;">
+    <label for="selector">Choose a component to view:</label>
+    <select id="selector" name="selector" onchange="toggleView(this);">
+      <option value="chime-button-group">chime-button-group</option>
+      <option value="chime-text-area">chime-text-area</option>
+      <option value="chime-gmail-tooltip">chime-gmail-tooltip</option>
+      <option value="chime-universal">chime-universal</option>
+    </select>
+  </div>
+  <div class="chime-element visible" id="chime-button-group">
     <chime-button-group></chime-button-group>
-  </body>
+  </div>
+  <div class="chime-element" id="chime-gmail-tooltip">
+    <chime-gmail-tooltip>
+      <chime-button-group></chime-button-group>
+    </chime-gmail-tooltip>
+  </div>
+  <div class="chime-element" id="chime-universal">
+    <chime-universal question="How cool is this?">
+      <chime-text-area></chime-text-area>
+    </chime-universal>
+  </div>
+  <div class="chime-element" id="chime-text-area">
+    <chime-text-area id="text-area" />
+  </div>
+  <script>
+    let textarea = document.body.querySelector('#text-area');
+    textarea.addEventListener("valueChange", (e) => {
+      console.log(`text area contains the value: ${e.detail}`);
+    });
+  </script>
+</body>
+
 </html>

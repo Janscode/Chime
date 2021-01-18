@@ -45,6 +45,22 @@ export namespace Components {
     }
     interface ChimeSubmitButton {
     }
+    interface ChimeTextArea {
+    }
+    interface ChimeUniversal {
+        /**
+          * @prop companyImage - path to the company's logo
+         */
+        "companyImage": string | null;
+        /**
+          * @prop question - the question being asked
+         */
+        "question": string;
+        /**
+          * @prop questionOriginator - entity who asked the question
+         */
+        "questioner": string | null;
+    }
 }
 declare global {
     interface HTMLChimeButtonGroupElement extends Components.ChimeButtonGroup, HTMLStencilElement {
@@ -65,10 +81,24 @@ declare global {
         prototype: HTMLChimeSubmitButtonElement;
         new (): HTMLChimeSubmitButtonElement;
     };
+    interface HTMLChimeTextAreaElement extends Components.ChimeTextArea, HTMLStencilElement {
+    }
+    var HTMLChimeTextAreaElement: {
+        prototype: HTMLChimeTextAreaElement;
+        new (): HTMLChimeTextAreaElement;
+    };
+    interface HTMLChimeUniversalElement extends Components.ChimeUniversal, HTMLStencilElement {
+    }
+    var HTMLChimeUniversalElement: {
+        prototype: HTMLChimeUniversalElement;
+        new (): HTMLChimeUniversalElement;
+    };
     interface HTMLElementTagNameMap {
         "chime-button-group": HTMLChimeButtonGroupElement;
         "chime-gmail-tooltip": HTMLChimeGmailTooltipElement;
         "chime-submit-button": HTMLChimeSubmitButtonElement;
+        "chime-text-area": HTMLChimeTextAreaElement;
+        "chime-universal": HTMLChimeUniversalElement;
     }
 }
 declare namespace LocalJSX {
@@ -90,6 +120,7 @@ declare namespace LocalJSX {
           * @prop midLabel: An optional label that will be placed near the middle button. Only works for odd numbers of buttons.
          */
         "midLabel"?: string;
+        "onValueChange"?: (event: CustomEvent<String>) => void;
     }
     interface ChimeGmailTooltip {
         /**
@@ -111,10 +142,31 @@ declare namespace LocalJSX {
     }
     interface ChimeSubmitButton {
     }
+    interface ChimeTextArea {
+        "onValueChange"?: (event: CustomEvent<String>) => void;
+    }
+    interface ChimeUniversal {
+        /**
+          * @prop companyImage - path to the company's logo
+         */
+        "companyImage"?: string | null;
+        "onDismissQuestion"?: (event: CustomEvent<String>) => void;
+        "onSubmitQuestion"?: (event: CustomEvent<any>) => void;
+        /**
+          * @prop question - the question being asked
+         */
+        "question"?: string;
+        /**
+          * @prop questionOriginator - entity who asked the question
+         */
+        "questioner"?: string | null;
+    }
     interface IntrinsicElements {
         "chime-button-group": ChimeButtonGroup;
         "chime-gmail-tooltip": ChimeGmailTooltip;
         "chime-submit-button": ChimeSubmitButton;
+        "chime-text-area": ChimeTextArea;
+        "chime-universal": ChimeUniversal;
     }
 }
 export { LocalJSX as JSX };
@@ -124,6 +176,8 @@ declare module "@stencil/core" {
             "chime-button-group": LocalJSX.ChimeButtonGroup & JSXBase.HTMLAttributes<HTMLChimeButtonGroupElement>;
             "chime-gmail-tooltip": LocalJSX.ChimeGmailTooltip & JSXBase.HTMLAttributes<HTMLChimeGmailTooltipElement>;
             "chime-submit-button": LocalJSX.ChimeSubmitButton & JSXBase.HTMLAttributes<HTMLChimeSubmitButtonElement>;
+            "chime-text-area": LocalJSX.ChimeTextArea & JSXBase.HTMLAttributes<HTMLChimeTextAreaElement>;
+            "chime-universal": LocalJSX.ChimeUniversal & JSXBase.HTMLAttributes<HTMLChimeUniversalElement>;
         }
     }
 }

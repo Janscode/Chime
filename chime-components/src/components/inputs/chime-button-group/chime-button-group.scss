@@ -22,7 +22,7 @@
   margin: 0 4px;
 }
 
-.chime-button:hover {
+.selected, .chime-button:hover {
   background-color: white;
   border-color: #333;
 }

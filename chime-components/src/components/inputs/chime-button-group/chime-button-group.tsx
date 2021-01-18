@@ -1,4 +1,13 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  h,
+  Prop,
+  State,
+} from '@stencil/core';
 
 @Component({
   tag: 'chime-button-group',
@@ -30,12 +39,41 @@ export class ChimeButtonGroup {
    */
   @Prop() highLabel: string = '';
 
+  @Element() el;
+
+  @State() value: String;
+
+  @Event() valueChange: EventEmitter<String>
+
+  valueChangeHandler(value: String) {
+    this.valueChange.emit(value);
+  }
+
+  toggleSelected(e) {
+    const prev = this.el.shadowRoot.querySelector('.selected');
+    if (prev) {
+      prev.classList.remove('selected');
+    } else {
+      console.log('no prev');
+    }
+    e.target.classList.add('selected');
+    this.value = e.target.value;
+    this.valueChangeHandler(this.value);
+  }
 
   render() {
     const buttons = [];
 
     for (let i = 0; i < this.boxes; i++) {
-      buttons.push(<button type="button" class="chime-button">{i+1}</button>);
+      buttons.push(
+        <button
+          class="chime-button"
+          type="button"
+          value={i+1}
+          onClick={e => this.toggleSelected(e)}
+        >
+          {i+1}
+        </button>);
     }
 
     if (this.lowLabel != '') {
