@@ -1,23 +1,10 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+/* global chrome */
+//^ so that ESLint doesn't get upset
+const app = chrome.extension.getBackgroundPage().app;
+//use chrome.extension.getViews({type: "popup"}) for reverse access to elements
+//TODO: evaluate message passing as other option
 
-const app = firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-});
-
-const db = app.firestore();
-// TODO: change this in prod
-if (true) {
-  console.log('Connecting to emulated db...');
-  db.useEmulator('localhost', 8080);
-}
+const db = chrome.extension.getBackgroundPage().db;
 export { db };
 export const auth = app.auth();
 export default app;

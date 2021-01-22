@@ -1,4 +1,4 @@
-const app = firebase.initializeApp({
+var app = firebase.initializeApp({
   apiKey: "AIzaSyC33QIMrxJ7K_jHIq1NMJr3Hcsw8KNNCn4",
   authDomain: "chime-dev-ff69d.firebaseapp.com",
   projectId: "chime-dev-ff69d",
@@ -8,7 +8,7 @@ const app = firebase.initializeApp({
   measurementId: "G-E364EHMM7R",
 });
 
-const db = app.firestore();
+var db = app.firestore();
 // TODO: change this in prod
 if (true) {
   console.log('Connecting to emulated db...');
