@@ -65,6 +65,7 @@ export class ChimeButtonGroup {
     const buttons = [];
 
     for (let i = 0; i < this.boxes; i++) {
+      // TODO: I don't know why this works. I think it should be buttons = [...buttons, <new_button>] but haven't really worked on it.
       buttons.push(
         <button
           class="chime-button"

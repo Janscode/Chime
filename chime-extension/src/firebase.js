@@ -17,6 +17,7 @@ const db = app.firestore();
 if (true) {
   console.log('Connecting to emulated db...');
   db.useEmulator('localhost', 8080);
+  auth.useEmulator('http://localhost:9909')
 }
 export { db };
 export const auth = app.auth();

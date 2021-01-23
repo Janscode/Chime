@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.static('./node_modules/chime-components/dist/chime-components'));
 
-const port = 3000;
+const port = 5050;
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

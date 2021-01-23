@@ -73,7 +73,6 @@ function CampaignDetails() {
       fluid
     >
       {header}
-      {/* TODO: add keys to questionData */}
       { error &&
         <Alert variant="danger">
           No questions could be loaded. {error}
