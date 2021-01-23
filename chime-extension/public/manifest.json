@@ -1,6 +1,13 @@
 {
   "manifest_version": 2,
-  
+  "background" : {
+    "scripts": [
+      "firebase-sdk/firebase-app.js",
+      "firebase-sdk/firebase-auth.js",
+      "firebase-sdk/firebase-firestore.js",
+      "background.js"
+    ]
+  },
   "content_scripts": [
       { 
           "matches": ["<all_urls>"],
