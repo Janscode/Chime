@@ -13,7 +13,7 @@ const app = firebase.initializeApp({
 });
 
 const db = app.firestore();
-if (location.hostname === 'localhost') {
+if (process.env.REACT_APP_FIREBASE_EMULATOR === 'true') {
   console.log('Connecting to emulated db...');
   db.useEmulator('localhost', 8080);
 }
