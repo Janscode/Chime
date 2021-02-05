@@ -1,17 +1,20 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+
+// TODO: This is only a solution for local use.
+app.use('/integrations', express.static('./node_modules/chime-components/dist/chime-components'));
+
 admin.initializeApp();
 
 const db = admin.firestore();
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
 
-//todo: make this work for local emulator
+exports.integrations = functions.https.onRequest(app);
+
 exports.createUser = functions.auth.user().onCreate((user) => {
     const { uid, displayName, email } = user;
 

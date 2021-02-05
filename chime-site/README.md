@@ -3,9 +3,9 @@
 First, contact the team to ensure you have the environment variables necessary for running the project.
 
 1. Make sure you have a firebase emulator installed. [Instructions.](https://firebase.google.com/docs/emulator-suite/install_and_configure)
-1. Start the emulator in the `firebase-emulator` folder
-1. `npm run start`
-1. App will run on `localhost:3000/` by default
+1. In the `chime-site` directory you will want two active terminals. Start the emulator in one with `npm run emulate`
+1. In the other `npm run start` -> this is not required but is suggested. This will allow hot reloading for dev work. If you generate a build you can also use `localhost:5000/`
+1. Using the suggested steps the app will run on `localhost:3000/` by default
 
 ## Problems
 

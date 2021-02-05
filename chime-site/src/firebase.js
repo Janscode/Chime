@@ -12,11 +12,12 @@ const app = firebase.initializeApp({
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
 
+const auth = app.auth();
 const db = app.firestore();
 if (process.env.REACT_APP_FIREBASE_EMULATOR === 'true') {
   console.log('Connecting to emulated db...');
   db.useEmulator('localhost', 8080);
+  auth.useEmulator('http://localhost:9099');
 }
-export { db };
-export const auth = app.auth();
+export { auth, db };
 export default app;

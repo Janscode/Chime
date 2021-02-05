@@ -5,6 +5,7 @@ First, contact the team to ensure you have the environment variables necessary f
 1. `npm run build`
 1. Load build folder into chrome.
 
+1. To run the emulator, in the 'chime-site' directory run 'npm run emulate'.
 ---
 
 **This project is hardcoded to use an emulator. Change line 17 in firebase.js if this is not the desired effect.**
