@@ -5,6 +5,13 @@ const app = chrome.extension.getBackgroundPage().app;
 //TODO: evaluate message passing as other option
 
 const db = chrome.extension.getBackgroundPage().db;
-export { db };
-export const auth = app.auth();
+const auth = chrome.extension.getBackgroundPage().auth;
+console.log(
+    chrome.extension.getBackgroundPage(),
+    app,
+    db,
+    auth,
+);
+export { db, auth };
+// export const auth = app.auth();
 export default app;

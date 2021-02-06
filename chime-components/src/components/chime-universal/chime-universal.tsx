@@ -34,7 +34,6 @@ export class ChimeUniversal {
 
   @Listen('valueChange')
   valueChangeHandler(event: CustomEvent) {
-    console.log(`Received the value ${event.detail}`)
     this.value = event.detail;
   }
 

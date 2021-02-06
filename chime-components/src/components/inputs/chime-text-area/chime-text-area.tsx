@@ -33,8 +33,8 @@ export class ChimeTextArea {
       <Host>
         <textarea
           class="chime-text-area"
-          cols={30}
-          rows={8}
+          cols={27}
+          rows={6}
           name="chime-text-area" 
           onInput={(e) => this.handleInput(e)}
         />

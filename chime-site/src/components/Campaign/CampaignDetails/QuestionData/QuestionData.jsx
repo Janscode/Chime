@@ -21,7 +21,7 @@ function QuestionData(props) {
         </h1>
         <LastModified
           active={props.active}
-          update={props.lastModified}
+          update={props.lastModified.toDate().toString()}
         />
       </Row>
       {/* <Row noGutters>

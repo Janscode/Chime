@@ -25,7 +25,7 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
   ref.current = people;
 
   useEffect(() => {
-    if (!defaultEmpty) {
+    if (!defaultEmpty && currentUser) {
       getUserById(currentUser.uid)
           .then((userDoc) => {
             if (!userDoc.empty) {

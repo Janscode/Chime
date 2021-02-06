@@ -14,6 +14,7 @@ const app = firebase.initializeApp({
 
 const auth = app.auth();
 const db = app.firestore();
+
 if (process.env.REACT_APP_FIREBASE_EMULATOR === 'true') {
   console.log('Connecting to emulated db...');
   db.useEmulator('localhost', 8080);

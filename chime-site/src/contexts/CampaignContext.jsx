@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { auth, db } from '../firebase';
+import firebase from 'firebase';
 import PropTypes from 'prop-types';
 
 const CampaignContext = React.createContext();
@@ -31,7 +32,7 @@ export function CampaignProvider({ children }) {
           collaborators: owners,
           collabName: collabName,
           recipients: recipients,
-          lastModified: new Date(),
+          lastModified: firebase.firestore.Timestamp.fromDate(new Date()),
           questions: [],
         });
   }
@@ -42,7 +43,7 @@ export function CampaignProvider({ children }) {
           active: true,
           author: author,
           campaignId: campaignId,
-          lastModified: new Date(),
+          lastModified: firebase.firestore.Timestamp.fromDate(new Date()),
           text: text,
           type: type,
           options: options,

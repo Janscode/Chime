@@ -2,12 +2,24 @@ import React from 'react';
 import './LastModified.scss';
 import PropTypes from 'prop-types';
 
-function LastModified(props) {
+function LastModified({ active, update }) {
   const oneHour = 1000 * 60 * 60;
   const now = new Date();
-  const then = new Date(props.update);
-  const start = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-  const end = Date.UTC(then.getFullYear(), then.getMonth(), then.getDate());
+  const then = new Date(update);
+  const start = Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      now.getHours(),
+      now.getMinutes(),
+  );
+  const end = Date.UTC(
+      then.getFullYear(),
+      then.getMonth(),
+      then.getDate(),
+      now.getHours(),
+      now.getMinutes(),
+  );
 
   const numHours = Math.round(Math.abs(start - end) / oneHour);
 
@@ -25,12 +37,14 @@ function LastModified(props) {
 
   return (
     <span className="last-modified__text">
-      { `${props.active ? 'updated' : 'closed'} `}
+      { `${active ? 'updated' : 'closed'} `}
       { timeString }
       <span
         className="circle"
         style={
-          props.active ? { backgroundColor: '#2ECC40' } : { backgroundColor: '#FF4136' }
+          active ?
+            { backgroundColor: '#2ECC40' } :
+            { backgroundColor: '#FF4136' }
         }
       ></span>
     </span>
