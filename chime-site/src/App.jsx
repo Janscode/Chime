@@ -8,6 +8,7 @@ import { Container } from 'react-bootstrap';
 import SignUp from './components/Header/Account/SignUp/SignUp';
 import { AuthProvider } from './contexts/AuthContext';
 import { CampaignProvider } from './contexts/CampaignContext';
+import PrivateRoute from './components/Routing/PrivateRoute';
 
 function App() {
   return (
@@ -19,14 +20,12 @@ function App() {
             <Route path='/' exact>
               <Homepage />
             </Route>
-            <Route path='/campaigns'>
-              <CampaignProvider>
-                <Campaign />
-              </CampaignProvider>
-            </Route>
             <Route path='/signup' exact>
               <SignUp />
             </Route>
+            <CampaignProvider>
+              <PrivateRoute redirectTo='/signup' path='/campaigns' component={Campaign} />
+            </CampaignProvider>
           </Switch>
         </Container>
       </AuthProvider>
