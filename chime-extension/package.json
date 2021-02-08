@@ -1,6 +1,6 @@
 {
   "name": "extension",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -17,6 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
+    "cp": "cp -r public/content_scripts/ build/content_scripts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

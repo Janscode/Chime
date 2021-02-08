@@ -76,12 +76,7 @@ export class ChimeUniversal {
             >
               Dismiss
             </a>
-            <button
-              type="button"
-              onClick={(e) => {this.submitHandler(e)}}
-            >
-              Submit
-            </button>
+            <chime-submit-button onClick={(e) => this.submitHandler(e)}/>
           </div>
         </div>
       </Host>

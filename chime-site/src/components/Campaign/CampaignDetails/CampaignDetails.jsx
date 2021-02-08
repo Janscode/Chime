@@ -79,13 +79,11 @@ function CampaignDetails() {
         </Alert>
       }
 
-      {questions?.docs.map((question, idx) => {
+      {questions?.docs.map((question) => {
         return (
           <QuestionData
-            active={question.data().active}
-            key={idx}
-            question={question.data().text}
-            lastModified={question.data().lastModified.toDate().toString()}
+            key={question.id}
+            question={question}
           />
         );
       })}

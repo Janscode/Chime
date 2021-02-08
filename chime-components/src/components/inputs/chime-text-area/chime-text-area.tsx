@@ -22,8 +22,8 @@ export class ChimeTextArea {
     this.valueChange.emit(value);
   }
 
-  handleInput(e) {
-    this.value = e.target.value;
+  handleKeyDown(e) {
+    this.value = e.target.innerText;
     this.valueChangeHandler(this.value);
   }
 
@@ -31,13 +31,15 @@ export class ChimeTextArea {
   render() {
     return (
       <Host>
-        <textarea
+        <div
           class="chime-text-area"
-          cols={27}
-          rows={6}
-          name="chime-text-area" 
-          onInput={(e) => this.handleInput(e)}
-        />
+          contentEditable
+          spellcheck
+          role="textarea"
+          onKeyDown={(e) => this.handleKeyDown(e)}
+        >
+
+        </div>
       </Host>
     );
   }

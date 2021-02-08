@@ -1,14 +1,23 @@
 (() => {
+    let mounted = false;
     let elem = undefined;
-    let s = document.createElement("script");
-    // TODO: Change in prod
-    s.src = "http://localhost:5000/integrations/chime-components.esm.js";
-    s.type = "module";
-    document.body.append(s);
 
+    if (!mounted) {
+        mounted = true;
+        chrome.runtime.sendMessage({
+            mounted: mounted,
+            location: location.href,
+            type: 'mount',
+        });
+    }
+    
     chrome.runtime.onMessage.addListener((message) => {
-        console.log(message);
         if (!elem) {
+            let s = document.createElement("script");
+            // TODO: Change in prod
+            s.src = "http://localhost:5000/integrations/chime-components.esm.js";
+            s.type = "module";
+            document.body.append(s);
             elem = document.createElement(message.integration);
             console.log(elem, message.author, message.question);
             elem.setAttribute('questioner', message.author.toString());

@@ -69,4 +69,44 @@ exports.updateQuestionName = functions.firestore.document('questions/{questionId
             });
     });
 
-// TODO: Make a cloud function to represent a question queue
+exports.removeQuestionFromQueue = functions.firestore.document('questions/{questionId}/responses/{uid}')
+    .onWrite((change, context) => {
+        const qid = context.params.questionId;
+        const uid = context.params.uid;
+
+        return db.collection("users")
+            .doc(uid)
+            .update({
+                queue: admin.firestore.FieldValue.arrayRemove(qid),
+            });
+    });
+
+exports.aggregateResponse = functions.firestore.document('questions/{questionId}/responses/{uid}')
+    .onWrite((change, context) => {
+        const qid = context.params.questionId;
+        const uid = context.params.uid;
+        
+        db.collection("questions")
+            .doc(qid)
+            .get()
+            .then((doc) => {
+                if (doc.data().type === 'Text Input') {
+                    let responses;
+                    if (doc.data.responses) {
+                        responses = [change.after.data().data, ...doc.data().responses.slice(0, 4)];
+                    } else {
+                        responses = [change.after.data().data];
+                    }
+                    return db.collection("questions")
+                        .doc(qid)
+                        .update({
+                            responses: responses,
+                        });
+                } else {
+                    return null;
+                }
+            })
+            .catch((error) => {
+                return functions.logger.log(error);
+            })
+    });

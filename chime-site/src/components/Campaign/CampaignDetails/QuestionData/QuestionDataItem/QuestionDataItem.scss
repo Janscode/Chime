@@ -16,3 +16,22 @@
         padding: 0 10px;
     }
 }
+
+.text-response {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px;
+    position: relative;
+    width: max-content;
+    max-width: 100%;
+
+    &::after {
+        content: '';
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent #f5f5f5 transparent transparent;
+        bottom: 8px;
+        left: -20px;
+        position: absolute;
+    }
+}

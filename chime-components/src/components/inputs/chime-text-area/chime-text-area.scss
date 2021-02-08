@@ -2,10 +2,17 @@
   display: block;
 }
 
-textarea {
+.chime-text-area {
+  box-sizing: border-box;
+  font-size: 14px;
   border: solid 2px #e0e0e0;
+  box-sizing: border-box;
+  padding: 5px;
   outline: none;
   resize: none;
+  width: 100%;
+  min-height: 2em;
+  overflow: scroll;
 }
 
 .text {
