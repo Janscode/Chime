@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../../../../contexts/AuthContext';
 import { useCampaign } from '../../../../contexts/CampaignContext';
 import PropTypes from 'prop-types';
+import './UserSearch.scss';
 
 // eslint-disable-next-line react/display-name
 const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = false }, ref) => {
@@ -42,10 +43,10 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
           .then((person) => {
             if (!person.empty) {
               const p = person.docs[0].data();
-              // TODO: Prevent duplicates
-              // TODO: Allow for removing people
-              setPeople([...people, p]);
-              setError('');
+              if (!people.some((person) => p.uid === person.uid + '1')) {
+                setPeople([...people, p]);
+                setError('');
+              }
               peopleInput.current.value = '';
             } else {
               setError(`The person ${peopleInput.current.value} does not exist!`);
@@ -55,6 +56,12 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
             console.log(error);
           });
     }
+  };
+
+  const removePerson = (personToDelete) => {
+    setPeople(
+        people.filter((person) => person !== personToDelete),
+    );
   };
 
   return (
@@ -101,8 +108,11 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
               className="m-2"
               key={person.uid}
             >
-              <Card.Body>
+              <Card.Body class="flex-card">
                 {person.email}
+                <Button id="removeParticipantButton" variant="outline-danger" onClick = {() => {
+                  removePerson(person);
+                }}>X</Button>
               </Card.Body>
             </Card>
           );
