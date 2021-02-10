@@ -11,15 +11,16 @@ service cloud.firestore {
 
     match /campaigns/{cid} { //code reviewer, is {cid} a good name for the wild card?
       allow create : if true; //needs to be reconsidered eventually with more extensive org features
-      allow read, write: if true; //TODO: make sure the request.auth.uid is in campaign collaborators
+      allow read, write: if request.auth.uid in resource.data.collaborators; //TODO: make sure the request.auth.uid is in campaign collaborators
     }
 
     match /questions/{qid} {
-      allow read, write : if true; //TODO: make sure request.auth.uid is in campaign collaborators for question
+      allow create : if request.auth.uid in get(/databases/$(database)/documents/campaigns/$(request.resource.data.campaignId)).data.collaborators
+      allow read, update : if request.auth.uid in get(/databases/$(database)/documents/campaigns/$(resource.data.campaignId)).data.collaborators
       allow read : if true; //TODO: make sure request.auth.uid has qid in their queue
 
       match /responses/{rid} {
-        allow write : if true; //TODO: make sure the user id is 
+        allow write : if request.auth.uid == request.data.uid; //TODO: make sure the user id is response uid
       }
     }
   }
