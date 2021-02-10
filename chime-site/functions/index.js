@@ -24,6 +24,8 @@ exports.createUser = functions.auth.user().onCreate((user) => {
         .set({ uid, displayName, email });
 });
 
+
+//TODO: this is returning a warning `{"severity":"WARNING","message":"Function returned undefined, expected Promise or value"}`
 exports.addQuestionToCampaign = functions.firestore.document('questions/{questionId}')
     .onCreate((snap, context) => {
         const questionId = context.params.questionId;
@@ -34,10 +36,8 @@ exports.addQuestionToCampaign = functions.firestore.document('questions/{questio
         campaignRef.doc(campaignId).get()
             .then((doc) => {
                 if (doc.exists) {
-                    console.log(doc.data().recipients);
                     //Write question to user feeds
                     doc.data().recipients.forEach(uid => {
-                        console.log(uid);
                         userRef.doc(uid).get().then((doc) => {
                             //TODO: am I doing this async right?
                             doc.ref.update({
@@ -53,6 +53,7 @@ exports.addQuestionToCampaign = functions.firestore.document('questions/{questio
             });
     });
 
+//TODO: this is returning a warning `{"severity":"WARNING","message":"Function returned undefined, expected Promise or value"}`
 exports.updateQuestionName = functions.firestore.document('questions/{questionId}')
     .onCreate((snap, context) => {
         const campaignId = snap.data().campaignId;

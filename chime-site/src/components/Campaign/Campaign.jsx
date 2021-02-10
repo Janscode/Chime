@@ -4,7 +4,7 @@ import './Campaign.scss';
 import CampaignDetails from './CampaignDetails/CampaignDetails';
 import CampaignHome from './CampaignHome/CampaignHome';
 import CampaignNew from './CampaignNew/CampaignNew';
-import NewQuestion from './NewQuestion/NewQuestion';
+import ManageQuestion from './ManageQuestion/ManageQuestion';
 
 function Campaign() {
   return (
@@ -18,8 +18,8 @@ function Campaign() {
       <Route path="/campaigns/:campaignId" exact>
         <CampaignDetails></CampaignDetails>
       </Route>
-      <Route path="/campaigns/:campaignId/add-question" exact>
-        <NewQuestion></NewQuestion>
+      <Route path="/campaigns/:campaignId/question/:qid" exact>
+        <ManageQuestion></ManageQuestion>
       </Route>
     </Switch>
   );

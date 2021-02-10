@@ -3,12 +3,13 @@ import React from 'react';
 import LastModified from '../../LastModified/LastModified';
 import './QuestionData.scss';
 import QuestionDataItem from './QuestionDataItem/QuestionDataItem';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 // TODO: Max this functional again
 function QuestionData({ question }) {
-  // eslint-disable-next-line
+  const { campaignId } = useParams();
   const {
     active,
     lastModified,
@@ -49,10 +50,22 @@ function QuestionData({ question }) {
           })}
         </Col>
         <Col className="infogroup__toggle d-flex justify-content-end flex-wrap">
-          <button className="m-2 infogroup-button">Edit</button>
-          <button className="m-2 infogroup-button">
+          <Button
+            as={Link}
+            className="m-2"
+            to={`/campaigns/${campaignId}/question/${question.id}`}
+            variant="outline-secondary"
+          >
+            Edit
+          </Button>
+          <Button
+            as={Link}
+            className="m-2"
+            to="#"
+            variant="outline-secondary"
+          >
             {active ? `Close` : `Reopen`}
-          </button>
+          </Button>
         </Col>
       </Row>
     </Container>

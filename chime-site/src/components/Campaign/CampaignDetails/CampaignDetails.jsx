@@ -41,7 +41,7 @@ function CampaignDetails() {
 
   const addQuestion = (e) => {
     e.preventDefault();
-    history.push(`/campaigns/${campaignId}/add-question`);
+    history.push(`/campaigns/${campaignId}/question/new`);
   };
 
   if (!loading) {
@@ -89,6 +89,7 @@ function CampaignDetails() {
       })}
       <button
         className="campaign__add-button"
+        role="link"
         onClick={addQuestion}
       >
         Add Question

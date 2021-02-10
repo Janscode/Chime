@@ -73,12 +73,11 @@ export function CampaignProvider({ children }) {
         .get();
   }
 
-  // function getCampaignQuestions(campaignId) {
-  //   return campaignsRef
-  //       .doc(campaignId)
-  //       .collection('questions')
-  //       .get();
-  // }
+  function getQuestionById(qid) {
+    return questionsRef
+        .doc(qid)
+        .get();
+  }
 
   function getUserByEmail(email) {
     return usersRef
@@ -94,14 +93,27 @@ export function CampaignProvider({ children }) {
         .get();
   }
 
+  function updateQuestion(qid, text, type, options = []) {
+    return questionsRef
+        .doc(qid)
+        .update({
+          lastModified: firebase.firestore.Timestamp.fromDate(new Date()),
+          text: text,
+          type: type,
+          options: options,
+        });
+  }
+
   const value = {
     addCampaign,
     addQuestionToCampaign,
     getCampaignById,
     getCampaignsForCurrUser,
     getCampaignQuestions,
+    getQuestionById,
     getUserByEmail,
     getUserById,
+    updateQuestion,
   };
 
   return (
