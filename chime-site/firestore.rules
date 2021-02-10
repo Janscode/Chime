@@ -17,7 +17,8 @@ service cloud.firestore {
     match /questions/{qid} {
       allow create : if request.auth.uid in get(/databases/$(database)/documents/campaigns/$(request.resource.data.campaignId)).data.collaborators
       allow read, update : if request.auth.uid in get(/databases/$(database)/documents/campaigns/$(resource.data.campaignId)).data.collaborators
-      allow read : if true; //TODO: make sure request.auth.uid has qid in their queue
+      
+      allow read : if qid in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.queue; //TODO: make sure request.auth.uid has qid in their queue
 
       match /responses/{rid} {
         allow write : if request.auth.uid == request.data.uid; //TODO: make sure the user id is response uid
