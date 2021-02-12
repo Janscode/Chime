@@ -38,6 +38,7 @@
       <option value="chime-text-area">chime-text-area</option>
       <option value="chime-gmail-tooltip">chime-gmail-tooltip</option>
       <option value="chime-universal">chime-universal</option>
+      <option value="chime-multi">chime-multi</option>
     </select>
   </div>
   <div class="chime-element visible" id="chime-button-group">
@@ -49,19 +50,32 @@
     </chime-gmail-tooltip>
   </div>
   <div class="chime-element" id="chime-universal">
-    <chime-universal question="How cool is this?">
+    <chime-universal id="univ-demo" question="How cool is this?">
       <chime-text-area></chime-text-area>
     </chime-universal>
+    <script>
+      let univ = document.body.querySelector("#univ-demo");
+      univ.addEventListener("submitQuestion", (e) => {
+        console.log(e.detail);
+      })
+    </script>
+  </div>
+  <div class="chime-element" id="chime-multi">
+    <chime-multi id="multi" type="Radio Buttons"></chime-multi>
+    <script>
+      let multi = document.body.querySelector('#multi');
+      multi.choices = ["Option 1", "Option 2", "Option 3"]
+    </script>
   </div>
   <div class="chime-element" id="chime-text-area">
     <chime-text-area id="text-area" />
+    <script>
+      let textarea = document.body.querySelector('#text-area');
+      textarea.addEventListener("valueChange", (e) => {
+        console.log(`text area contains the value: ${e.detail}`);
+      });
+    </script>
   </div>
-  <script>
-    let textarea = document.body.querySelector('#text-area');
-    textarea.addEventListener("valueChange", (e) => {
-      console.log(`text area contains the value: ${e.detail}`);
-    });
-  </script>
 </body>
 
 </html>

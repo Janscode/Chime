@@ -34,12 +34,9 @@ function getQuestion() {
 function integrate(question) {
   if (question.exists) {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      console.log(question.data());
       chrome.tabs.sendMessage(tabs[0].id, {
-        author: question.data().author,
         integration: "chime-universal",
-        question: question.data().text,
-        type: question.data().type,
+        question: question.data(),
       })
     })
   }

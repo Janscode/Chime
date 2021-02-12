@@ -53,8 +53,6 @@ export class ChimeButtonGroup {
     const prev = this.el.shadowRoot.querySelector('.selected');
     if (prev) {
       prev.classList.remove('selected');
-    } else {
-      console.log('no prev');
     }
     e.target.classList.add('selected');
     this.value = e.target.value;

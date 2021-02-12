@@ -43,6 +43,10 @@ export namespace Components {
          */
         "questioner": string | null;
     }
+    interface ChimeMulti {
+        "choices": string[] | string;
+        "type": string;
+    }
     interface ChimeSubmitButton {
     }
     interface ChimeTextArea {
@@ -75,6 +79,12 @@ declare global {
         prototype: HTMLChimeGmailTooltipElement;
         new (): HTMLChimeGmailTooltipElement;
     };
+    interface HTMLChimeMultiElement extends Components.ChimeMulti, HTMLStencilElement {
+    }
+    var HTMLChimeMultiElement: {
+        prototype: HTMLChimeMultiElement;
+        new (): HTMLChimeMultiElement;
+    };
     interface HTMLChimeSubmitButtonElement extends Components.ChimeSubmitButton, HTMLStencilElement {
     }
     var HTMLChimeSubmitButtonElement: {
@@ -96,6 +106,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "chime-button-group": HTMLChimeButtonGroupElement;
         "chime-gmail-tooltip": HTMLChimeGmailTooltipElement;
+        "chime-multi": HTMLChimeMultiElement;
         "chime-submit-button": HTMLChimeSubmitButtonElement;
         "chime-text-area": HTMLChimeTextAreaElement;
         "chime-universal": HTMLChimeUniversalElement;
@@ -140,6 +151,11 @@ declare namespace LocalJSX {
          */
         "questioner"?: string | null;
     }
+    interface ChimeMulti {
+        "choices"?: string[] | string;
+        "onValueChange"?: (event: CustomEvent<string[]>) => void;
+        "type"?: string;
+    }
     interface ChimeSubmitButton {
     }
     interface ChimeTextArea {
@@ -164,6 +180,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "chime-button-group": ChimeButtonGroup;
         "chime-gmail-tooltip": ChimeGmailTooltip;
+        "chime-multi": ChimeMulti;
         "chime-submit-button": ChimeSubmitButton;
         "chime-text-area": ChimeTextArea;
         "chime-universal": ChimeUniversal;
@@ -175,6 +192,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "chime-button-group": LocalJSX.ChimeButtonGroup & JSXBase.HTMLAttributes<HTMLChimeButtonGroupElement>;
             "chime-gmail-tooltip": LocalJSX.ChimeGmailTooltip & JSXBase.HTMLAttributes<HTMLChimeGmailTooltipElement>;
+            "chime-multi": LocalJSX.ChimeMulti & JSXBase.HTMLAttributes<HTMLChimeMultiElement>;
             "chime-submit-button": LocalJSX.ChimeSubmitButton & JSXBase.HTMLAttributes<HTMLChimeSubmitButtonElement>;
             "chime-text-area": LocalJSX.ChimeTextArea & JSXBase.HTMLAttributes<HTMLChimeTextAreaElement>;
             "chime-universal": LocalJSX.ChimeUniversal & JSXBase.HTMLAttributes<HTMLChimeUniversalElement>;

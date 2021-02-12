@@ -2,3 +2,4 @@ package-lock.json
 node_modules/
 chime-site/.eslintcache
 chime-site/firebase-debug.log
+ui-debug.log
