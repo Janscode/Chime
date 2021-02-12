@@ -5,14 +5,19 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const PrivateRoute = ({ component: Component, redirectTo, ...rest }) => {
   const { currentUser } = useAuth();
+  const checkRoute = () => {
+    if (currentUser) {
+      if (currentUser.emailVerified) {
+        return <Component />;
+      }
+      return <Redirect to={'/verifyEmail'} />;
+    }
+    return <Redirect to={redirectTo} />;
+  };
   return (
     <Route
       {...rest}
-      render={() => (
-          currentUser ?
-          <Component /> :
-          <Redirect to={redirectTo} />
-      )}
+      render={checkRoute}
     />
   );
 };

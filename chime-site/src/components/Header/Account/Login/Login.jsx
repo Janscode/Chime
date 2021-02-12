@@ -1,62 +1,46 @@
-import { Alert, Button, Container, Form, Modal } from 'react-bootstrap';
-import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import * as firebaseui from 'firebaseui';
+import { Card } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import 'firebaseui/dist/firebaseui.css';
 import { useAuth } from '../../../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
 
-function Login(props) {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+function Login() {
+  const { getAuth, getFAuth } = useAuth();
+  const auth = getAuth();
 
-  const { login } = useAuth();
+  const firebaseuiConfig = ({
+    signInSuccessUrl: '/campaigns/home',
+    signInOptions: [
+      getFAuth().EmailAuthProvider.PROVIDER_ID,
+      getFAuth().GoogleAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        if (authResult.additionalUserInfo.isNewUser) {
+          authResult.user.sendEmailVerification();
+        }
+        return true;
+      },
+    },
+  });
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      setError('');
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      props.onClose();
-      setLoading(false);
-    } catch {
-      setError('Username or password is incorrect');
-    }
-  }
-
+  useEffect(() => {
+    const firebaseuiDisplay = new firebaseui.auth.AuthUI(auth);
+    firebaseuiDisplay.start('#firebaseui', firebaseuiConfig);
+  }, []);
   return (
-    <Modal show={props.show} onHide={props.onClose}>
-      <Modal.Header>
-        Log In
-      </Modal.Header>
-      <Modal.Body>
-        {error && <Alert variant="danger"> {error} </Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Form.Group id="email">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" ref={emailRef} required></Form.Control>
-          </Form.Group>
-          <Form.Group id="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" ref={passwordRef} required></Form.Control>
-          </Form.Group>
-          <Button className="w-100" type="submit" disabled={loading}>Log In</Button>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Container className="text-center">
-          {`Don't have an account?`} <Link to="/signup" onClick={props.onClose}>Sign Up</Link>
-        </Container>
-      </Modal.Footer>
-    </Modal>
+    <Card className="mx-3">
+      <Card.Header>
+        <h2 className="text-center">
+        Log In/Sign Up
+        </h2>
+      </Card.Header>
+      <Card.Body>
+        <div id="firebaseui"/>
+      </Card.Body>
+    </Card>
   );
 }
 
-Login.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
 
 export default Login;

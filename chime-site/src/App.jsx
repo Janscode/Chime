@@ -5,7 +5,8 @@ import Campaign from './components/Campaign/Campaign';
 import Homepage from './components/Homepage/Homepage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import SignUp from './components/Header/Account/SignUp/SignUp';
+import Login from './components/Header/Account/Login/Login';
+import VerifyEmail from './components/Header/Account/VerifyEmail/VerifyEmail';
 import { AuthProvider } from './contexts/AuthContext';
 import { CampaignProvider } from './contexts/CampaignContext';
 import PrivateRoute from './components/Routing/PrivateRoute';
@@ -20,11 +21,14 @@ function App() {
             <Route path='/' exact>
               <Homepage />
             </Route>
-            <Route path='/signup' exact>
-              <SignUp />
+            <Route path='/login' exact>
+              <Login />
+            </Route>
+            <Route path='/verifyEmail' exact>
+              <VerifyEmail />
             </Route>
             <CampaignProvider>
-              <PrivateRoute redirectTo='/signup' path='/campaigns' component={Campaign} />
+              <PrivateRoute redirectTo='/login' path='/campaigns' component={Campaign} />
             </CampaignProvider>
           </Switch>
         </Container>

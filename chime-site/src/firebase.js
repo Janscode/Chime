@@ -20,5 +20,5 @@ if (process.env.REACT_APP_FIREBASE_EMULATOR === 'true') {
   db.useEmulator('localhost', 8080);
   auth.useEmulator('http://localhost:9099');
 }
-export { auth, db };
+export { auth, db, firebase };
 export default app;

@@ -43,7 +43,7 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
           .then((person) => {
             if (!person.empty) {
               const p = person.docs[0].data();
-              if (!people.some((person) => p.uid === person.uid + '1')) {
+              if (!people.some((person) => p.uid === person.uid)) {
                 setPeople([...people, p]);
                 setError('');
               }
