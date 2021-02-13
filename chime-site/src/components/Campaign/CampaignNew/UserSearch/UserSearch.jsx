@@ -13,7 +13,7 @@ import {
 import { useAuth } from '../../../../contexts/AuthContext';
 import { useCampaign } from '../../../../contexts/CampaignContext';
 import PropTypes from 'prop-types';
-import './UserSearch.scss';
+import { X } from 'react-bootstrap-icons';
 
 // eslint-disable-next-line react/display-name
 const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = false }, ref) => {
@@ -108,11 +108,19 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
               className="m-2"
               key={person.uid}
             >
-              <Card.Body class="flex-card">
+              <Card.Body class="d-flex p-3 align-items-center">
                 {person.email}
-                <Button id="removeParticipantButton" variant="outline-danger" onClick = {() => {
-                  removePerson(person);
-                }}>X</Button>
+                <Button
+                  className="py-1 px-1 ml-3"
+                  onClick = {() => {
+                    removePerson(person);
+                  }}
+                  variant="outline-danger"
+                >
+                  <X
+                    size={25}
+                  />
+                </Button>
               </Card.Body>
             </Card>
           );

@@ -37,16 +37,16 @@ export function CampaignProvider({ children }) {
         });
   }
 
-  function addQuestionToCampaign(campaignId, text, type, author = '', options = []) {
+  function addQuestionToCampaign(campaignId, question) {
     return questionsRef
         .add({
           active: true,
-          author: author,
+          author: '',
           campaignId: campaignId,
           lastModified: firebase.firestore.Timestamp.fromDate(new Date()),
-          text: text,
-          type: type,
-          options: options,
+          text: question.prompt, // TODO call this prompt in the db too
+          type: question.type,
+          choices: question.choices,
         });
   }
 
@@ -93,14 +93,12 @@ export function CampaignProvider({ children }) {
         .get();
   }
 
-  function updateQuestion(qid, text, type, options = []) {
+  function updateQuestion(qid, question) {
     return questionsRef
         .doc(qid)
         .update({
-          lastModified: firebase.firestore.Timestamp.fromDate(new Date()),
-          text: text,
-          type: type,
-          options: options,
+          ...question,
+          text: question.prompt,
         });
   }
 

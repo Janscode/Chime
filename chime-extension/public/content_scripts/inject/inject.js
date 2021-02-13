@@ -11,6 +11,7 @@
                 retElem.setAttribute('choices', JSON.stringify(choices));
                 return retElem;
         }
+        return undefined;
     }
 
     let mounted = false;
@@ -37,7 +38,9 @@
             elem.setAttribute('questioner', author.toString());
             elem.setAttribute('question', question.toString());
             let child = getChildElement(type, choices);
-            elem.appendChild(child);
+            if (child) {
+                elem.appendChild(child);
+            }
             document.body.append(elem);
             elem.addEventListener('submitQuestion', (e) => {
                 submit(e.detail);

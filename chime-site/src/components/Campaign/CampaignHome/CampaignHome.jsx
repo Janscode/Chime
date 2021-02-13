@@ -81,7 +81,7 @@ function CampaignHome() {
             }
             <Button
               block
-              className="mt-3"
+              className="mt-3 border"
               size="lg"
               type="button"
               variant="secondary"
