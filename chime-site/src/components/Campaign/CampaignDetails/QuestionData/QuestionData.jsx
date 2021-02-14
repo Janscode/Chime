@@ -16,10 +16,35 @@ function QuestionData({ question }) {
     responses,
     text,
     type,
+    choices,
+    totalResponses,
   } = question.data();
-  // const selection = (item) => item.selections;
-  // const sum = (prev, next) => prev + next;
-  // const responses = answers.map(selection).reduce(sum);
+
+  let choiceResponses;
+  // Determines if the type is checkbox/radio
+  if (responses && !Array.isArray(responses)) {
+    choiceResponses = [];
+    const highestNumberOfVotes = Object.values(responses).reduce((a, b) => {
+      return a.votes > b.votes ? a : b;
+    }).votes;
+    choices.forEach((choice) => {
+      let votes = 0;
+      if (responses[choice]) {
+        votes = responses[choice].votes;
+      }
+      const numberOfResponses = totalResponses || 1;
+
+      choiceResponses.push({
+        choice,
+        frequency: votes/numberOfResponses * 100,
+        votes,
+        isHighest: votes === highestNumberOfVotes ? true : false,
+      });
+    });
+  }
+
+  const formattedResponses = choiceResponses || responses;
+
   return (
     <Container className="question-data p-3 mb-4">
       <Row
@@ -38,7 +63,7 @@ function QuestionData({ question }) {
         noGutters
       >
         <Col sm={9} xs={12}>
-          {responses?.map((response, idx) => {
+          {formattedResponses?.map((response, idx) => {
             return (
               <QuestionDataItem
                 className="my-2"
@@ -49,7 +74,7 @@ function QuestionData({ question }) {
             );
           })}
         </Col>
-        <Col className="infogroup__toggle d-flex justify-content-end flex-wrap">
+        <Col className="infogroup__toggle">
           <Button
             as={Link}
             className="m-2"

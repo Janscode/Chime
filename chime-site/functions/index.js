@@ -103,6 +103,21 @@ exports.aggregateResponse = functions.firestore.document('questions/{questionId}
                         .update({
                             responses: responses,
                         });
+                } else if (doc.data().type === 'Radio Buttons' || doc.data().type === 'Checkboxes') {
+                    const choices = change.after.data().data
+                    choices.forEach((choice) => {
+                        db.collection("questions")
+                            .doc(qid)
+                            .update({
+                                [`responses.${choice}.votes`]: admin.firestore.FieldValue.increment(1)
+                            });
+                        })
+
+                    db.collection("questions")
+                        .doc(qid)
+                        .update({
+                            totalResponses: admin.firestore.FieldValue.increment(1)
+                        })
                 } else {
                     return null;
                 }
