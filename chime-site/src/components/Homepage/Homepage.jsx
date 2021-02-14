@@ -36,7 +36,6 @@ function Homepage() {
           >
             <div id="mc_embed_signup_scroll">
               <div className="mc-field-group">
-                {/* TODO: I don't think this works anymore */}
                 <label htmlFor="mce-EMAIL">Email Address </label>
                 <input
                   className="required email"

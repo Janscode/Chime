@@ -28,7 +28,7 @@
     
     chrome.runtime.onMessage.addListener((message) => {
         if (!elem) {
-            const { author, choices, type, text: question } = message.question;
+            const { author, choices, type, prompt } = message.question;
             let s = document.createElement("script");
             // TODO: Change in prod
             s.src = "http://localhost:5000/integrations/chime-components.esm.js";
@@ -36,7 +36,7 @@
             document.body.append(s);
             elem = document.createElement(message.integration);
             elem.setAttribute('questioner', author.toString());
-            elem.setAttribute('question', question.toString());
+            elem.setAttribute('question', prompt.toString());
             let child = getChildElement(type, choices);
             if (child) {
                 elem.appendChild(child);

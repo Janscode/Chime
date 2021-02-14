@@ -48,9 +48,4 @@ function ProfileDropdown() {
   );
 }
 
-// ProfileDropdown.propTypes = {
-//   children: PropTypes.node,
-//   onClick:
-// }
-
 export default ProfileDropdown;

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import { ChevronDown, ChevronUp } from 'react-bootstrap-icons';
 function CampaignCard({ docId, campaign }) {
+  const [open, setOpen] = useState(false);
   let body;
   // TODO: query for active questions
   if ('questions' in campaign && campaign.questions.length === 0) {
@@ -15,9 +16,13 @@ function CampaignCard({ docId, campaign }) {
       <p>This feature is not yet complete</p>
     );
   }
+
   return (
     <Accordion
       className="mb-3"
+      onSelect={(ekey) => {
+        setOpen(ekey !== null);
+      }}
     >
       <Card>
         <Card.Header
@@ -34,9 +39,12 @@ function CampaignCard({ docId, campaign }) {
               eventKey="0"
               as={Button}
               className="mx-2"
-              type="Button"
+              variant="light"
             >
-              Expand
+              {open ?
+                <ChevronDown size={20}/> :
+                <ChevronUp size={20}/>
+              }
             </Accordion.Toggle>
           </span>
         </Card.Header>
@@ -52,8 +60,8 @@ function CampaignCard({ docId, campaign }) {
 }
 
 CampaignCard.propTypes = {
+  docId: PropTypes.string.isRequired,
   campaign: PropTypes.object,
-  docId: PropTypes.string.required,
 };
 
 export default CampaignCard;

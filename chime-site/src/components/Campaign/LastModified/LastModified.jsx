@@ -3,7 +3,7 @@ import './LastModified.scss';
 import PropTypes from 'prop-types';
 
 function LastModified({ active, update }) {
-  const oneHour = 1000 * 60 * 60;
+  const oneMinute = 1000 * 60;
   const now = new Date();
   const then = new Date(update);
   const start = Date.UTC(
@@ -17,22 +17,24 @@ function LastModified({ active, update }) {
       then.getFullYear(),
       then.getMonth(),
       then.getDate(),
-      now.getHours(),
-      now.getMinutes(),
+      then.getHours(),
+      then.getMinutes(),
   );
 
-  const numHours = Math.round(Math.abs(start - end) / oneHour);
+  const numMinutes = Math.round(Math.abs(start - end) / oneMinute);
 
   let timeString;
 
-  if (numHours === 0) {
+  if (numMinutes === 0) {
     timeString = `now`;
-  } else if (numHours < 24) {
-    timeString = `${numHours} hours ago`;
-  } else if (numHours / 24 < 7) {
-    timeString = `${Math.round(numHours / 24)} days ago`;
+  } else if (numMinutes < 60) {
+    timeString = `${numMinutes} minutes ago`;
+  } else if (numMinutes / 60 < 24) {
+    timeString = `${Math.round(numMinutes / 60)} hours ago`;
+  } else if (numMinutes / (24 * 60) < 7) {
+    timeString = `${Math.round(numMinutes / (24 * 60))} days ago`;
   } else {
-    timeString = `${Math.round(numHours / 24 / 7)} weeks ago`;
+    timeString = `${Math.round(numMinutes / (24 * 60 * 7))} weeks ago`;
   }
 
   return (

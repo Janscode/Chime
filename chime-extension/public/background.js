@@ -23,7 +23,7 @@ if (true) {
 }
 
 function getQuestion() {
-  if (queue.length) {
+  if (queue?.length) {
     const q = queue[0]
     db.collection("questions").doc(q)
       .get()
@@ -43,7 +43,7 @@ function integrate(question) {
 }
 
 function sendResponse(response) {
-  if (queue.length && currentUser.uid) {
+  if (queue?.length && currentUser.uid) {
     const q = queue[0];
     db.collection("questions")
       .doc(q)

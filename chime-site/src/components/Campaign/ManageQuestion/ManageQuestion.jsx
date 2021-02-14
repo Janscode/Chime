@@ -58,7 +58,7 @@ function ManageQuestion() {
       getQuestionById(qid)
           .then((doc) => {
             if (mount && doc.exists) {
-              const { text: prompt, type, choices } = doc.data();
+              const { prompt, type, choices } = doc.data();
               setQuestion({
                 prompt: prompt,
                 type: type,

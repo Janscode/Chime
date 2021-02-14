@@ -44,7 +44,7 @@ export function CampaignProvider({ children }) {
           author: '',
           campaignId: campaignId,
           lastModified: firebase.firestore.Timestamp.fromDate(new Date()),
-          text: question.prompt, // TODO call this prompt in the db too
+          prompt: question.prompt, // TODO call this prompt in the db too
           type: question.type,
           choices: question.choices,
         });
@@ -98,7 +98,6 @@ export function CampaignProvider({ children }) {
         .doc(qid)
         .update({
           ...question,
-          text: question.prompt,
         });
   }
 

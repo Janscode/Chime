@@ -14,7 +14,7 @@ function QuestionData({ question }) {
     active,
     lastModified,
     responses,
-    text,
+    prompt,
     type,
     choices,
     totalResponses,
@@ -52,7 +52,7 @@ function QuestionData({ question }) {
         noGutters
       >
         <h1 className="question-data--text">
-          { text }
+          { prompt }
         </h1>
         <LastModified
           active={active}

@@ -16,7 +16,6 @@ const AuthenticatedTabs = () => {
 function Header() {
   const { currentUser } = useAuth();
   return (
-
     <Navbar
       className="header"
       sticky="top"
@@ -33,7 +32,7 @@ function Header() {
           src="chime-logos/chime-right.svg"
           alt=""
         />
-                Chime
+        Chime
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
