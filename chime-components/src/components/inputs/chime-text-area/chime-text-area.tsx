@@ -23,6 +23,7 @@ export class ChimeTextArea {
   }
 
   handleKeyDown(e) {
+    console.log(e);
     this.value = e.target.innerText;
     this.valueChangeHandler(this.value);
   }
@@ -34,9 +35,10 @@ export class ChimeTextArea {
         <div
           class="chime-text-area"
           contentEditable
-          spellcheck
           role="textarea"
-          onKeyDown={(e) => this.handleKeyDown(e)}
+          spellcheck
+          tabIndex={0}
+          onKeyUp={(e) => this.handleKeyDown(e)}
         >
 
         </div>
