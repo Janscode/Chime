@@ -10,6 +10,7 @@ import VerifyEmail from './components/Header/Account/VerifyEmail/VerifyEmail';
 import { AuthProvider } from './contexts/AuthContext';
 import { CampaignProvider } from './contexts/CampaignContext';
 import PrivateRoute from './components/Routing/PrivateRoute';
+import NotFound from './components/Routing/NotFound';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <CampaignProvider>
               <PrivateRoute redirectTo='/login' path='/campaigns' component={Campaign} />
             </CampaignProvider>
+            <Route component={NotFound} />
           </Switch>
         </Container>
       </AuthProvider>

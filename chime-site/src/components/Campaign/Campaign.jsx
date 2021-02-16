@@ -5,6 +5,7 @@ import CampaignDetails from './CampaignDetails/CampaignDetails';
 import CampaignHome from './CampaignHome/CampaignHome';
 import CampaignNew from './CampaignNew/CampaignNew';
 import ManageQuestion from './ManageQuestion/ManageQuestion';
+import NotFound from '../Routing/NotFound';
 
 function Campaign() {
   return (
@@ -21,6 +22,7 @@ function Campaign() {
       <Route path="/campaigns/:campaignId/question/:qid" exact>
         <ManageQuestion></ManageQuestion>
       </Route>
+      <Route component={NotFound}/>
     </Switch>
   );
 }
