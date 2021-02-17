@@ -24,8 +24,6 @@ exports.createUser = functions.auth.user().onCreate((user) => {
         .set({ uid, displayName, email });
 });
 
-
-//TODO: this is returning a warning `{"severity":"WARNING","message":"Function returned undefined, expected Promise or value"}`
 exports.addQuestionToCampaign = functions.firestore.document('questions/{questionId}')
     .onCreate((snap, context) => {
         const questionId = context.params.questionId;
@@ -33,33 +31,45 @@ exports.addQuestionToCampaign = functions.firestore.document('questions/{questio
         const userRef = db.collection("users");
 
         const campaignRef = db.collection('campaigns');
-        campaignRef.doc(campaignId).get()
-            .then((doc) => {
-                if (doc.exists) {
-                    //Write question to user feeds
-                    doc.data().recipients.forEach(uid => {
-                        userRef.doc(uid).get().then((doc) => {
-                            //TODO: am I doing this async right?
-                            doc.ref.update({
-                                queue: admin.firestore.FieldValue.arrayUnion(questionId),
-                            });
-                        });
-                    });
-                    // Write the question to the campaign list
-                    return doc.ref.update({
-                        questions: admin.firestore.FieldValue.arrayUnion(questionId),
-                    })
+        const updates = campaignRef.doc(campaignId).get()
+            .then((campaignDoc) => {
+                if (campaignDoc.exists) {
+
+                    const recipientUidArray = campaignDoc.data().recipients;
+                    const userDocs = recipientUidArray.map(uid => userRef.doc(uid).get());
+                    const docRefs = [campaignDoc, ...userDocs];
+                    return Promise.all(docRefs);
+                } else {
+                    return null;
                 }
+            })
+            .then((docRefs) => {
+                const campaignDoc = docRefs[0];
+                const campaignUpdate = campaignDoc.ref.update({
+                    questions: admin.firestore.FieldValue.arrayUnion(questionId),
+                });
+                // Take all but first element of docRefs
+                const userUpdates = docRefs.slice(1).map(userDoc =>
+                    userDoc.ref.update({
+                        queue: admin.firestore.FieldValue.arrayUnion(questionId),
+                    })
+                );
+
+                const updates = [campaignUpdate, ...userUpdates];
+                return Promise.all(updates);
+            })
+            .catch((error) => {
+                console.log(error);
             });
+            return updates;
     });
 
-//TODO: this is returning a warning `{"severity":"WARNING","message":"Function returned undefined, expected Promise or value"}`
 exports.updateQuestionName = functions.firestore.document('questions/{questionId}')
     .onCreate((snap, context) => {
         const campaignId = snap.data().campaignId;
 
         const campaignRef = db.collection('campaigns');
-        campaignRef.doc(campaignId).get()
+        return campaignRef.doc(campaignId).get()
             .then((doc) => {
                 if (doc.exists) {
                     // Write the question to the campaign list
@@ -67,6 +77,12 @@ exports.updateQuestionName = functions.firestore.document('questions/{questionId
                         author: doc.data().collabName,
                     })
                 }
+                else {
+                    return null;
+                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
     });
 
@@ -87,7 +103,7 @@ exports.aggregateResponse = functions.firestore.document('questions/{questionId}
         const qid = context.params.questionId;
         const uid = context.params.uid;
         
-        db.collection("questions")
+        return db.collection("questions")
             .doc(qid)
             .get()
             .then((doc) => {
@@ -105,19 +121,21 @@ exports.aggregateResponse = functions.firestore.document('questions/{questionId}
                         });
                 } else if (doc.data().type === 'Radio Buttons' || doc.data().type === 'Checkboxes') {
                     const choices = change.after.data().data
-                    choices.forEach((choice) => {
-                        db.collection("questions")
-                            .doc(qid)
-                            .update({
-                                [`responses.${choice}.votes`]: admin.firestore.FieldValue.increment(1)
-                            });
-                        })
+                    let responseObj = {
+                        "totalResponses": admin.firestore.FieldValue.increment(1),
+                    }
 
-                    db.collection("questions")
+                    const keys = choices.map((choice) => {
+                        return `responses.${choice}.votes`;
+                    });
+
+                    keys.forEach((key) => responseObj[key] = admin.firestore.FieldValue.increment(1));
+
+                    return db.collection("questions")
                         .doc(qid)
                         .update({
-                            totalResponses: admin.firestore.FieldValue.increment(1)
-                        })
+                            ...responseObj
+                        });
                 } else {
                     return null;
                 }
