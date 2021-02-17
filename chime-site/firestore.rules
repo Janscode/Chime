@@ -2,7 +2,32 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
+    }
+
+    match /users/{uid} { 
+      allow read: if true; //needs to be reconsidered eventually with more extensive org features
+    }
+    
+    match /organizations/{oid} { 
+      // We will want to create the notion of org owners at some point
+      allow read, write: if request.auth.uid != null;
+    }
+
+    match /campaigns/{cid} {
+      allow create : if true; //needs to be reconsidered eventually with more extensive org features
+      allow read, write: if request.auth.uid in resource.data.collaborators;
+    }
+
+    match /questions/{qid} {
+      allow create : if request.auth.uid in get(/databases/$(database)/documents/campaigns/$(request.resource.data.campaignId)).data.collaborators
+      allow read, update : if request.auth.uid in get(/databases/$(database)/documents/campaigns/$(resource.data.campaignId)).data.collaborators
+      
+      allow read : if qid in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.queue;
+
+      match /responses/{rid} {
+        allow write : if request.auth.uid == request.data.uid;
+      }
     }
   }
 }
