@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { auth } from '../firebase';
+import { auth, firebase } from '../firebase';
 import PropTypes from 'prop-types';
 
 const AuthContext = React.createContext();
@@ -12,8 +12,12 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password);
+  function getAuth() {
+    return auth;
+  }
+
+  function getFAuth() {
+    return firebase.auth;
   }
 
   useEffect(() => {
@@ -27,7 +31,8 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    login,
+    getAuth,
+    getFAuth,
   };
 
   return (
