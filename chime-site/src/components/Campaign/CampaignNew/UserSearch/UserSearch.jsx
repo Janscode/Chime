@@ -11,46 +11,47 @@ import {
   Row,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../contexts/AuthContext';
-import { useCampaign } from '../../../../contexts/CampaignContext';
 import PropTypes from 'prop-types';
 import { X } from 'react-bootstrap-icons';
+import './UserSearch.scss';
+import { getUserByEmail, getUserById } from '../../../../utils/Campaign';
+
+const SUGGESTION_LIMIT = 5;
 
 // eslint-disable-next-line react/display-name
-const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = false }, ref) => {
-  const { getUserByEmail, getUserById } = useCampaign();
+const UserSearch = React.forwardRef(({ className = '', type, org, defaultEmpty = false }, ref) => {
   const { currentUser } = useAuth();
-  const peopleInput = useRef();
   const [people, setPeople] = useState([]);
+  const [person, setPerson] = useState('');
   const [error, setError] = useState('');
-
-  ref.current = people;
+  const [suggestions, setSuggestions] = useState();
+  const suggFocus = useRef([
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+  ]);
+  const ID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
 
   useEffect(() => {
-    if (!defaultEmpty && currentUser) {
-      getUserById(currentUser.uid)
-          .then((userDoc) => {
-            if (!userDoc.empty) {
-              setPeople([userDoc.docs[0].data()]);
-            }
-          });
-    }
-  }, []);
+    ref.current = people;
+  }, [people]);
 
-  const getPeople = (e) => {
-    e.preventDefault();
-    if (peopleInput.current.value !== '') {
-      getUserByEmail(peopleInput.current.value)
-          .then((person) => {
-            if (!person.empty) {
-              const p = person.docs[0].data();
-              if (!people.some((person) => p.uid === person.uid)) {
-                setPeople([...people, p]);
+  const getPeople = () => {
+    if (person !== '') {
+      getUserByEmail(person)
+          .then((personDoc) => {
+            if (!personDoc.empty) {
+              const personData = personDoc.docs[0].data();
+              if (!people.some((peep) => personData.uid === peep.uid)) {
+                setPeople([...people, personData]);
                 setError('');
               }
-              peopleInput.current.value = '';
             } else {
-              setError(`The person ${peopleInput.current.value} does not exist!`);
+              setError(`The person ${person} does not exist!`);
             }
+            setPerson('');
           })
           .catch((error) => {
             console.log(error);
@@ -63,6 +64,68 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
         people.filter((person) => person !== personToDelete),
     );
   };
+
+  const getSuggestedPeople = () => {
+    if (org) {
+      const members = org.data().members;
+      const suggs = members.filter((member) => {
+        return member.indexOf(person) !== -1;
+      });
+
+      setSuggestions(suggs);
+
+      if (person === '') {
+        setSuggestions([]);
+      }
+    }
+  };
+
+  const controlFlowInput = (e) => {
+    e.stopPropagation();
+    if (e.key === 'ArrowDown' && suggFocus.current[0].current) {
+      e.preventDefault();
+      suggFocus.current[0].current.focus();
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      getPeople();
+    }
+  };
+
+  const controlFlow = (e, idx) => {
+    e.stopPropagation();
+    if (e.key === 'ArrowDown' && idx < SUGGESTION_LIMIT - 1) {
+      if (suggFocus.current[idx + 1].current) {
+        suggFocus.current[idx + 1].current.focus();
+      }
+    } else if (e.key === 'ArrowUp' && idx > 0) {
+      suggFocus.current[idx - 1].current.focus();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      setPerson(suggFocus.current[idx].current.innerText);
+      document.querySelector(`#${ID}`).focus();
+    } else if (e.key === 'Escape' || (e.key === 'ArrowUp' && idx === 0)) {
+      document.querySelector(`#${ID}`).focus();
+    }
+  };
+
+  useEffect(() => {
+    if (!defaultEmpty && currentUser) {
+      getUserById(currentUser.uid)
+          .then((userDoc) => {
+            if (!userDoc.empty) {
+              setPeople([userDoc.docs[0].data()]);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    }
+  }, []);
+
+  useEffect(() => {
+    getSuggestedPeople();
+  }, [person]);
 
   return (
     <Container
@@ -86,8 +149,14 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
             <FormControl
               aria-label={ type }
               aria-describedby="basic-addon1"
-              ref={peopleInput}
+              className="user__input"
+              id={ID}
+              value={person}
               type="text"
+              onChange={(e) => {
+                setPerson(e.target.value);
+              }}
+              onKeyDown={controlFlowInput}
             />
             <InputGroup.Append>
               <Button
@@ -98,6 +167,28 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
               </Button>
             </InputGroup.Append>
           </InputGroup>
+          {suggestions &&
+            <Container className="user__suggestions">
+              {suggestions.slice(0, SUGGESTION_LIMIT).map((sugg, idx) => {
+                return (
+                  <Card
+                    className="text-center highlight"
+                    key={sugg}
+                    ref={suggFocus.current[idx]}
+                    role="option"
+                    tabIndex="0"
+                    onKeyDown={(e) => controlFlow(e, idx)}
+                    onClick={() => {
+                      setPerson(suggFocus.current[idx].current.innerText);
+                      document.querySelector(`#${ID}`).focus();
+                    }}
+                  >
+                    { sugg }
+                  </Card>
+                );
+              })}
+            </Container>
+          }
         </Col>
       </Row>
       <Row className="my-3">
@@ -108,7 +199,7 @@ const UserSearch = React.forwardRef(({ className = '', type, defaultEmpty = fals
               className="m-2"
               key={person.uid}
             >
-              <Card.Body class="d-flex p-3 align-items-center">
+              <Card.Body className="d-flex p-3 align-items-center">
                 {person.email}
                 <Button
                   className="py-1 px-1 ml-3"
@@ -134,6 +225,7 @@ UserSearch.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string.isRequired,
   defaultEmpty: PropTypes.bool,
+  org: PropTypes.object,
 };
 
 

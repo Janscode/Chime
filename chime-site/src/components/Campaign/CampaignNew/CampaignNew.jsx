@@ -1,19 +1,51 @@
-import React, { useRef } from 'react';
-import { Form, Col, Row, Container, Button } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  ToggleButton,
+  ToggleButtonGroup,
+} from 'react-bootstrap';
 import './CampaignNew.scss';
-import { useCampaign } from '../../../contexts/CampaignContext';
 import { useHistory } from 'react-router-dom';
 import UserSearch from './UserSearch/UserSearch';
+import { getUserOrgs } from '../../../utils/Org';
+import { addCampaign } from '../../../utils/Campaign';
 
 function CampaignNew() {
   const history = useHistory();
-  const surveyName = useRef();
   const ownerInput = useRef();
-  const collabID = useRef();
   const recipientInput = useRef();
-  const { addCampaign } = useCampaign();
+  const [orgs, setOrgs] = useState();
+  const [activeOrg, setActiveOrg] = useState();
+  const [campaign, setCampaign] = useState({
+    name: '',
+    collaborators: [],
+    collabName: '',
+    recipients: [],
+  });
 
-  const onSubmit = (e) => {
+  console.log(ownerInput.current);
+  console.log(recipientInput.current);
+
+  useEffect(() => {
+    let mount = true;
+
+    getUserOrgs()
+        .then((orgs) => {
+          if (mount && !orgs.empty) {
+            setOrgs(orgs.docs);
+            setActiveOrg(orgs.docs[0]);
+          }
+        });
+    return () => {
+      mount = false;
+    };
+  }, []);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const owners = ownerInput.current.map((value) => {
@@ -24,18 +56,14 @@ function CampaignNew() {
       return value.uid;
     });
 
-    addCampaign(
-        surveyName.current.value,
-        collabID.current.value,
-        owners,
-        recipients,
-    )
-        .then(() => {
-          history.goBack();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (owners && recipients && campaign.name && campaign.collabName) {
+      await addCampaign({
+        ...campaign,
+        collaborators: owners,
+        recipients: recipients,
+      }).catch(console.error);
+      history.goBack();
+    }
   };
 
   return (
@@ -52,9 +80,12 @@ function CampaignNew() {
           <Col>
             <Form.Control
               placeholder="Quarterly Engagement Survey"
-              ref={surveyName}
+              value={campaign.name}
               required
               type="text"
+              onChange={(e) => {
+                setCampaign({ ...campaign, name: e.target.value });
+              }}
             />
           </Col>
         </Row>
@@ -64,25 +95,69 @@ function CampaignNew() {
             sm="auto"
             xs={12}
           >
-            Collaborator ID
+            Collaborator Id
           </Form.Label>
           <Col>
             <Form.Control
               placeholder="HR Department"
-              ref={collabID}
+              value={campaign.collabName}
               required
               type="text"
+              onChange={(e) => {
+                setCampaign({ ...campaign, collabName: e.target.value });
+              }}
             />
           </Col>
         </Row>
+        {(orgs && activeOrg) &&
+          <Row className="my-3">
+            <Form.Label
+              column
+              sm="auto"
+              xs={12}
+            >
+              Organization
+            </Form.Label>
+            <Col>
+              <ToggleButtonGroup
+                name="org-toggle"
+                type="radio"
+                value={activeOrg.id}
+                onChange={(val) => {
+                  for (const org in orgs.docs) {
+                    if (Object.hasOwnProperty.call(orgs, org)) {
+                      if (org.data().name === val) {
+                        setActiveOrg(newActiveOrg);
+                        break;
+                      }
+                    }
+                  }
+                }}
+              >
+                {orgs.map((org) => {
+                  return (
+                    <ToggleButton
+                      key={org.id}
+                      value={org.data().name}
+                    >
+                      {org.data().name}
+                    </ToggleButton>
+                  );
+                })}
+              </ToggleButtonGroup>
+            </Col>
+          </Row>
+        }
         <hr />
         <UserSearch
           ref={ownerInput}
           type="Collaborators"
+          org={activeOrg}
         />
         <UserSearch
           ref={recipientInput}
           type="Recipients"
+          org={activeOrg}
         />
         <Button block variant="light" type="submit">Done!</Button>
       </Form>

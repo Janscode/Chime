@@ -3,12 +3,16 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
 
-const PrivateRoute = ({ component: Component, redirectTo, ...rest }) => {
+const PrivateRoute = ({ component: Component, redirectTo, children, ...rest }) => {
   const { currentUser } = useAuth();
   const checkRoute = () => {
     if (currentUser) {
       if (currentUser.emailVerified) {
-        return <Component />;
+        return (
+          <Component>
+            { children }
+          </Component>
+        );
       }
       return <Redirect to={'/verifyEmail'} />;
     }
@@ -25,6 +29,7 @@ const PrivateRoute = ({ component: Component, redirectTo, ...rest }) => {
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
   redirectTo: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };
 
 export default PrivateRoute;

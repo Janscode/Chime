@@ -8,7 +8,7 @@ const AuthenticatedTabs = () => {
   return (
     <>
       <Nav.Link className="px-3" href="/campaigns/home">Campaigns</Nav.Link>
-      <Nav.Link className="px-3" href="#">Manage</Nav.Link>
+      <Nav.Link className="px-3" href="/organizations">Organizations</Nav.Link>
     </>
   );
 };

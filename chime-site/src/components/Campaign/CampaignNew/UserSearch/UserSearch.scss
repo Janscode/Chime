@@ -1,0 +1,15 @@
+.user {
+    &__input {
+        position: relative;
+    }
+
+    &__suggestions {
+        position: absolute;
+        z-index: 3;
+        left: 0;
+    }
+}
+
+.highlight:focus {
+    border-color: var(--primary);
+}

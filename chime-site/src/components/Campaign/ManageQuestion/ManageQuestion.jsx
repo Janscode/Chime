@@ -12,8 +12,8 @@ import {
   InputGroup,
   Spinner,
 } from 'react-bootstrap';
-import { useCampaign } from '../../../contexts/CampaignContext';
 import { X } from 'react-bootstrap-icons';
+import { addQuestionToCampaign, getQuestionById, updateQuestion } from '../../../utils/Campaign';
 
 const QUESTION_TYPES = [
   'Text Input',
@@ -31,7 +31,6 @@ function ManageQuestion() {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const { addQuestionToCampaign, getQuestionById, updateQuestion } = useCampaign();
   const { campaignId, qid } = useParams();
   const history = useHistory();
 

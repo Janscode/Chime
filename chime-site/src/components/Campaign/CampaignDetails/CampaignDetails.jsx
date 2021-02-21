@@ -3,14 +3,13 @@ import LastModified from '../LastModified/LastModified';
 import QuestionData from './QuestionData/QuestionData';
 import './CampaignDetails.scss';
 import { Alert, Container, Row } from 'react-bootstrap';
-import { useCampaign } from '../../../contexts/CampaignContext';
 import { useHistory, useParams } from 'react-router-dom';
+import { getCampaignById, getCampaignQuestions } from '../../../utils/Campaign';
 
 function CampaignDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [questions, setQuestions] = useState();
-  const { getCampaignById, getCampaignQuestions } = useCampaign();
   const [campaign, setCampaign] = useState();
   const { campaignId } = useParams();
   const errorRef = useRef();

@@ -1,50 +1,39 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Alert, Button, Card, Container, Row, Spinner } from 'react-bootstrap';
-import { useCampaign } from '../../../contexts/CampaignContext';
+import React, { useState, useEffect } from 'react';
+import { Alert, Button, Card, Container, Row } from 'react-bootstrap';
+import { getCampaignsForCurrUser } from '../../../utils/Campaign';
 import CampaignCard from './CampaignCard/CampaignCard';
 import { useHistory } from 'react-router-dom';
+import Loading from '../../Loading/Loading';
 
 function CampaignHome() {
-  const dbContent = useRef(null);
-  const dbError = useRef(false);
+  const [campaigns, setCampaigns] = useState();
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const { getCampaignsForCurrUser } = useCampaign();
   const history = useHistory();
   const addCampaign = (e) => {
     e.preventDefault();
     history.push('/campaigns/new');
   };
 
-  useEffect(() => {
-    getCampaignsForCurrUser()
-        .then((docs) => {
-          dbContent.current = docs;
-          setLoading(false);
-        })
-        .catch((error) => {
-          dbError.current = error;
-          setLoading(false);
-        });
+  console.log(campaigns);
+
+  useEffect(async () => {
+    try {
+      const docs = await getCampaignsForCurrUser();
+      if (!docs.empty) {
+        setCampaigns(docs.docs);
+      }
+    } catch (err) {
+      setError(err.toString());
+    }
+    setLoading(false);
   }, []);
 
   return (
     <>
       {
         loading ?
-          <Spinner
-            animation="border"
-            style={{
-              position: 'fixed',
-              zIndex: 10,
-              width: '50',
-              height: '50',
-              left: 'calc(50% - 50px)',
-              top: 'calc(20% - 50px)',
-            }}
-            role="status"
-          >
-            <span className="sr-only">loading...</span>
-          </Spinner> :
+          <Loading /> :
           <Container
             className="campaign p-4"
             fluid
@@ -55,7 +44,7 @@ function CampaignHome() {
             >
               <h6 className="campaign--text"> My Campaigns </h6>
             </Row>
-            {dbError.current ?
+            {error ?
               <Alert variant="danger">
                 <Card>
                   <Card.Header>
@@ -66,14 +55,14 @@ function CampaignHome() {
                   </Card.Body>
                 </Card>
               </Alert> :
-              (dbContent.current?.empty) ?
+              (!campaigns) ?
                 <p
                   className="text-muted text-center p-5"
                   style={{ border: '2px solid #e0e0e0' }}
                 >
                   You do not have any campaigns.
                 </p> :
-                dbContent.current?.docs.map((doc) => {
+                campaigns?.map((doc) => {
                   return (
                     <CampaignCard key={doc.id} docId={doc.id} campaign={doc.data()} />
                   );

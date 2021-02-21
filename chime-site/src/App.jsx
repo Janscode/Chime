@@ -8,8 +8,8 @@ import { Container } from 'react-bootstrap';
 import Login from './components/Header/Account/Login/Login';
 import VerifyEmail from './components/Header/Account/VerifyEmail/VerifyEmail';
 import { AuthProvider } from './contexts/AuthContext';
-import { CampaignProvider } from './contexts/CampaignContext';
 import PrivateRoute from './components/Routing/PrivateRoute';
+import Organization from './components/Organization/Organization';
 import NotFound from './components/Routing/NotFound';
 
 function App() {
@@ -28,9 +28,8 @@ function App() {
             <Route path='/verifyEmail' exact>
               <VerifyEmail />
             </Route>
-            <CampaignProvider>
-              <PrivateRoute redirectTo='/login' path='/campaigns' component={Campaign} />
-            </CampaignProvider>
+            <PrivateRoute redirectTo='/login' path='/campaigns' component={Campaign} />
+            <PrivateRoute redirectTo='/' path='/organizations' component={Organization} />
             <Route component={NotFound} />
           </Switch>
         </Container>
