@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Col,
@@ -16,9 +16,7 @@ import { addCampaign } from '../../../utils/Campaign';
 
 function CampaignNew() {
   const history = useHistory();
-  const ownerInput = useRef();
-  const recipientInput = useRef();
-  const [orgs, setOrgs] = useState();
+  const [orgs, setOrgs] = useState([]);
   const [activeOrg, setActiveOrg] = useState();
   const [campaign, setCampaign] = useState({
     name: '',
@@ -26,9 +24,6 @@ function CampaignNew() {
     collabName: '',
     recipients: [],
   });
-
-  console.log(ownerInput.current);
-  console.log(recipientInput.current);
 
   useEffect(() => {
     let mount = true;
@@ -48,19 +43,9 @@ function CampaignNew() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const owners = ownerInput.current.map((value) => {
-      return value.uid;
-    });
-
-    const recipients = recipientInput.current.map((value) => {
-      return value.uid;
-    });
-
     if (owners && recipients && campaign.name && campaign.collabName) {
       await addCampaign({
         ...campaign,
-        collaborators: owners,
-        recipients: recipients,
       }).catch(console.error);
       history.goBack();
     }
@@ -124,13 +109,9 @@ function CampaignNew() {
                 type="radio"
                 value={activeOrg.id}
                 onChange={(val) => {
-                  for (const org in orgs.docs) {
-                    if (Object.hasOwnProperty.call(orgs, org)) {
-                      if (org.data().name === val) {
-                        setActiveOrg(newActiveOrg);
-                        break;
-                      }
-                    }
+                  const orgfound = orgs.find((org) => org.id === val);
+                  if (orgfound) {
+                    setActiveOrg(orgfound);
                   }
                 }}
               >
@@ -138,7 +119,7 @@ function CampaignNew() {
                   return (
                     <ToggleButton
                       key={org.id}
-                      value={org.data().name}
+                      value={org.id}
                     >
                       {org.data().name}
                     </ToggleButton>
@@ -150,14 +131,28 @@ function CampaignNew() {
         }
         <hr />
         <UserSearch
-          ref={ownerInput}
           type="Collaborators"
-          org={activeOrg}
+          org={activeOrg?.data()}
+          onAddPerson={(people) => {
+            setCampaign({
+              ...campaign,
+              collaborators: Array.from(people).map((person) => {
+                return person.uid;
+              }),
+            });
+          }}
         />
         <UserSearch
-          ref={recipientInput}
+          onAddPerson={(people) => {
+            setCampaign({
+              ...campaign,
+              recipients: Array.from(people).map((person) => {
+                return person.uid;
+              }),
+            });
+          }}
+          org={activeOrg?.data()}
           type="Recipients"
-          org={activeOrg}
         />
         <Button block variant="light" type="submit">Done!</Button>
       </Form>

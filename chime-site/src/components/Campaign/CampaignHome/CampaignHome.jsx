@@ -15,8 +15,6 @@ function CampaignHome() {
     history.push('/campaigns/new');
   };
 
-  console.log(campaigns);
-
   useEffect(async () => {
     try {
       const docs = await getCampaignsForCurrUser();

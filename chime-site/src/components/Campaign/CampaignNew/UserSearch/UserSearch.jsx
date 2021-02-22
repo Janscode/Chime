@@ -18,8 +18,14 @@ import { getUserByEmail, getUserById } from '../../../../utils/Campaign';
 
 const SUGGESTION_LIMIT = 5;
 
-// eslint-disable-next-line react/display-name
-const UserSearch = React.forwardRef(({ className = '', type, org, defaultEmpty = false }, ref) => {
+export default function UserSearch({
+  className = '',
+  defaultEmpty = false,
+  displayPeople = true,
+  onAddPerson,
+  org,
+  type,
+}) {
   const { currentUser } = useAuth();
   const [people, setPeople] = useState([]);
   const [person, setPerson] = useState('');
@@ -35,7 +41,7 @@ const UserSearch = React.forwardRef(({ className = '', type, org, defaultEmpty =
   const ID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
 
   useEffect(() => {
-    ref.current = people;
+    onAddPerson(people);
   }, [people]);
 
   const getPeople = () => {
@@ -67,7 +73,7 @@ const UserSearch = React.forwardRef(({ className = '', type, org, defaultEmpty =
 
   const getSuggestedPeople = () => {
     if (org) {
-      const members = org.data().members;
+      const members = org.members;
       const suggs = members.filter((member) => {
         return member.indexOf(person) !== -1;
       });
@@ -191,42 +197,43 @@ const UserSearch = React.forwardRef(({ className = '', type, org, defaultEmpty =
           }
         </Col>
       </Row>
-      <Row className="my-3">
-        {people.map((person) => {
-          return (
-            <Card
-              bg="light"
-              className="m-2"
-              key={person.uid}
-            >
-              <Card.Body className="d-flex p-3 align-items-center">
-                {person.email}
-                <Button
-                  className="py-1 px-1 ml-3"
-                  onClick = {() => {
-                    removePerson(person);
-                  }}
-                  variant="outline-danger"
-                >
-                  <X
-                    size={25}
-                  />
-                </Button>
-              </Card.Body>
-            </Card>
-          );
-        })}
-      </Row>
+      {displayPeople &&
+        <Row className="my-3">
+          {people.map((person) => {
+            return (
+              <Card
+                bg="light"
+                className="m-2"
+                key={person.uid}
+              >
+                <Card.Body className="d-flex p-3 align-items-center">
+                  {person.email}
+                  <Button
+                    className="py-1 px-1 ml-3"
+                    onClick = {() => {
+                      removePerson(person);
+                    }}
+                    variant="outline-danger"
+                  >
+                    <X
+                      size={25}
+                    />
+                  </Button>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </Row>
+      }
     </Container>
   );
-});
+}
 
 UserSearch.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.string.isRequired,
   defaultEmpty: PropTypes.bool,
+  displayPeople: PropTypes.bool,
+  onAddPerson: PropTypes.func.isRequired,
   org: PropTypes.object,
+  type: PropTypes.string,
 };
-
-
-export default UserSearch;

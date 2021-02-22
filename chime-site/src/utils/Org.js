@@ -1,6 +1,19 @@
 import { auth, db } from '../firebase';
 
 const orgRef = db.collection('organizations');
+
+export function createOrg(org) {
+  return orgRef
+      .add({
+        ...org,
+      });
+};
+export function getOrgById(oid) {
+  return orgRef
+      .doc(oid)
+      .get();
+}
+
 // TODO: Paginate
 export function getUserOrgs() {
   return orgRef
@@ -8,9 +21,10 @@ export function getUserOrgs() {
       .get();
 }
 
-export function createOrg(Org) {
+export function updateOrg(oid, org) {
   return orgRef
-      .add({
-        ...Org,
+      .doc(oid)
+      .update({
+        ...org,
       });
 };

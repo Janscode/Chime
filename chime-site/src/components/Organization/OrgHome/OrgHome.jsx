@@ -44,35 +44,46 @@ function Org({ doc, className }) {
   return (
     <Card className={className}>
       <Card.Header className="d-flex justify-content-between align-items-center">
-        { name }
-        {owners.includes(currentUser.email) &&
-          <Button disabled>
-            {/* TODO: make this actually do something */}
+        {name}
+        {owners.includes(currentUser.email) && (
+          <Button as={Link} to={`/organizations/${doc.id}`}>
             Manage
           </Button>
-        }
+        )}
       </Card.Header>
     </Card>
   );
-};
+}
 
-function OrgHome({ docs }) {
+function OrgGroup({ docs }) {
   return (
     <>
-      {docs.empty ?
-        <NoOrg /> :
-        <>
-          <h3>Your organizations:</h3>
-          {docs.docs.map((doc) => {
-            return <Org key={doc.id} doc={doc} className="my-3" />;
-          })}
-        </>
-      }
+      <h3>Your organizations:</h3>
+      {docs.docs.map((doc) => {
+        return <Org key={doc.id} doc={doc} className="my-3" />;
+      })}
+      <Button
+        as={Link}
+        block
+        className="border"
+        to="/organizations/create"
+        variant="light"
+      >
+        Add Organization
+      </Button>
     </>
   );
 }
 
+function OrgHome({ docs }) {
+  return <>{docs.empty ? <NoOrg /> : <OrgGroup docs={docs} />}</>;
+}
+
 OrgHome.propTypes = {
+  docs: PropTypes.object.isRequired,
+};
+
+OrgGroup.propTypes = {
   docs: PropTypes.object.isRequired,
 };
 

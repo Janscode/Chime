@@ -4,7 +4,7 @@ import { getUserOrgs } from '../../utils/Org';
 import Loading from '../Loading/Loading';
 import OrgHome from './OrgHome/OrgHome';
 import { Route } from 'react-router-dom';
-import OrgCreate from './OrgCreate/OrgCreate';
+import OrgManage from './OrgManage/OrgManage';
 
 function Organization() {
   const [docs, setDocs] = useState();
@@ -36,8 +36,8 @@ function Organization() {
         <Route path="/organizations" exact>
           <OrgHome docs={docs} />
         </Route>
-        <Route path="/organizations/create">
-          <OrgCreate />
+        <Route path="/organizations/:orgId">
+          <OrgManage />
         </Route>
       </Container>
     );
