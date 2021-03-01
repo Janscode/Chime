@@ -43,7 +43,7 @@ function CampaignNew() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (owners && recipients && campaign.name && campaign.collabName) {
+    if (campaign.collaborators && campaign.recipients && campaign.name && campaign.collabName) {
       await addCampaign({
         ...campaign,
       }).catch(console.error);
