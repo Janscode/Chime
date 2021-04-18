@@ -15,16 +15,18 @@ function CampaignHome() {
     history.push('/campaigns/new');
   };
 
-  useEffect(async () => {
-    try {
-      const docs = await getCampaignsForCurrUser();
-      if (!docs.empty) {
-        setCampaigns(docs.docs);
+  useEffect(() => {
+    (async () => {
+      try {
+        const docs = await getCampaignsForCurrUser();
+        if (!docs.empty) {
+          setCampaigns(docs.docs);
+        }
+      } catch (err) {
+        setError(err.toString());
       }
-    } catch (err) {
-      setError(err.toString());
-    }
-    setLoading(false);
+      setLoading(false);
+    })();
   }, []);
 
   return (

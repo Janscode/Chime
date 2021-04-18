@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "chime-dev-ff69d"
+    "default": "chime-dev-ff69d",
+    "production": "chime-prod-68953"
   }
 }

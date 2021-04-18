@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors());
 
-// TODO: This is only a solution for local use.
+//TODO: This is only a solution for local use.
 app.use('/integrations', express.static('./node_modules/chime-components/dist/chime-components'));
 
 admin.initializeApp();
